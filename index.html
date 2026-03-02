@@ -1,2258 +1,1251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenPoll Enterprise — The World's Most Advanced Free Audience Platform</title>
-  
-  <!-- PWA Support -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#4f46e5">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  
-  <style>
-    /* ===== MODERN SAAS DESIGN SYSTEM ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      /* Modern SaaS color palette */
-      --slate-50: #f8fafc;
-      --slate-100: #f1f5f9;
-      --slate-200: #e2e8f0;
-      --slate-300: #cbd5e1;
-      --slate-400: #94a3b8;
-      --slate-500: #64748b;
-      --slate-600: #475569;
-      --slate-700: #334155;
-      --slate-800: #1e293b;
-      --slate-900: #0f172a;
-      
-      /* Accent colors */
-      --indigo-50: #eef2ff;
-      --indigo-100: #e0e7ff;
-      --indigo-200: #c7d2fe;
-      --indigo-300: #a5b4fc;
-      --indigo-400: #818cf8;
-      --indigo-500: #6366f1;
-      --indigo-600: #4f46e5;
-      --indigo-700: #4338ca;
-      --indigo-800: #3730a3;
-      --indigo-900: #312e81;
-      
-      /* Semantic colors */
-      --success-50: #f0fdf4;
-      --success-500: #22c55e;
-      --success-600: #16a34a;
-      --warning-50: #fefce8;
-      --warning-500: #eab308;
-      --error-50: #fef2f2;
-      --error-500: #ef4444;
-      --error-600: #dc2626;
-      
-      /* Typography */
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      
-      /* Spacing */
-      --space-1: 0.25rem;
-      --space-2: 0.5rem;
-      --space-3: 0.75rem;
-      --space-4: 1rem;
-      --space-6: 1.5rem;
-      --space-8: 2rem;
-      --space-12: 3rem;
-      --space-16: 4rem;
-      
-      /* Shadows */
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-      
-      /* Border radius */
-      --radius-sm: 0.375rem;
-      --radius-md: 0.5rem;
-      --radius-lg: 0.75rem;
-      --radius-xl: 1rem;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: var(--slate-50);
-      color: var(--slate-900);
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-
-    /* ===== LAYOUT COMPONENTS ===== */
-    .app {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: var(--space-4);
-    }
-
-    /* Navigation */
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--space-4) var(--space-6);
-      background: white;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-sm);
-      margin-bottom: var(--space-6);
-      border: 1px solid var(--slate-200);
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--indigo-600), var(--indigo-800));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-
-    .logo-badge {
-      background: var(--indigo-100);
-      color: var(--indigo-700);
-      font-size: 0.75rem;
-      padding: var(--space-1) var(--space-2);
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: var(--space-2);
-    }
-
-    /* Buttons */
-    .btn {
-      padding: var(--space-2) var(--space-4);
-      border-radius: var(--radius-md);
-      font-weight: 500;
-      font-size: 0.875rem;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-      font-family: var(--font-sans);
-    }
-
-    .btn:focus-visible {
-      outline: 2px solid var(--indigo-500);
-      outline-offset: 2px;
-    }
-
-    .btn-primary {
-      background: var(--indigo-600);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--indigo-700);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: var(--slate-700);
-      border-color: var(--slate-300);
-    }
-
-    .btn-secondary:hover {
-      background: var(--slate-50);
-      border-color: var(--slate-400);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--slate-600);
-    }
-
-    .btn-ghost:hover {
-      background: var(--slate-100);
-      color: var(--slate-900);
-    }
-
-    .btn-premium {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-premium::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn-premium:hover::before {
-      left: 100%;
-    }
-
-    /* Cards */
-    .card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--slate-200);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
-    }
-
-    .card-premium {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-
-    .card-premium .btn {
-      background: white;
-      color: var(--indigo-600);
-    }
-
-    /* Grid layouts */
-    .grid {
-      display: grid;
-      gap: var(--space-6);
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    /* Forms */
-    .form-group {
-      margin-bottom: var(--space-4);
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--slate-700);
-      margin-bottom: var(--space-2);
-    }
-
-    .form-input {
-      width: 100%;
-      padding: var(--space-3) var(--space-4);
-      border: 1px solid var(--slate-300);
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      transition: all 0.2s ease;
-      font-family: var(--font-sans);
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--indigo-500);
-      box-shadow: 0 0 0 3px var(--indigo-100);
-    }
-
-    .form-input.error {
-      border-color: var(--error-500);
-      background: var(--error-50);
-    }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      gap: var(--space-1);
-      background: white;
-      border: 1px solid var(--slate-200);
-      border-radius: var(--radius-lg);
-      padding: var(--space-1);
-      width: fit-content;
-    }
-
-    .tab {
-      padding: var(--space-2) var(--space-4);
-      border-radius: var(--radius-md);
-      font-weight: 500;
-      font-size: 0.875rem;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--slate-600);
-      transition: all 0.2s ease;
-    }
-
-    .tab:hover {
-      color: var(--slate-900);
-      background: var(--slate-100);
-    }
-
-    .tab.active {
-      background: var(--indigo-600);
-      color: white;
-    }
-
-    /* Progress bars with smooth animations */
-    .progress-bar {
-      height: 0.5rem;
-      background: var(--slate-200);
-      border-radius: 9999px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--indigo-500), var(--indigo-600));
-      border-radius: 9999px;
-      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    /* Live results */
-    .result-row {
-      display: flex;
-      align-items: center;
-      gap: var(--space-4);
-      padding: var(--space-2) 0;
-    }
-
-    .result-label {
-      width: 160px;
-      font-weight: 500;
-      color: var(--slate-700);
-    }
-
-    .result-bar-container {
-      flex: 1;
-      height: 2rem;
-      background: var(--slate-100);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .result-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--indigo-500), var(--indigo-600));
-      border-radius: var(--radius-md);
-      transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-      display: flex;
-      align-items: center;
-      padding-left: var(--space-3);
-      color: white;
-      font-size: 0.875rem;
-      font-weight: 500;
-      min-width: 2rem;
-    }
-
-    .result-count {
-      width: 4rem;
-      text-align: right;
-      font-weight: 600;
-      color: var(--slate-600);
-    }
-
-    /* Word cloud with animations */
-    .word-cloud {
-      min-height: 200px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      align-items: center;
-      justify-content: center;
-      padding: var(--space-6);
-      background: var(--slate-50);
-      border-radius: var(--radius-lg);
-    }
-
-    .word-bubble {
-      padding: var(--space-2) var(--space-4);
-      border-radius: 9999px;
-      font-weight: 500;
-      animation: wordPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      transition: transform 0.2s ease;
-      cursor: default;
-    }
-
-    .word-bubble:hover {
-      transform: scale(1.1);
-    }
-
-    @keyframes wordPop {
-      0% {
-        opacity: 0;
-        transform: scale(0);
-      }
-      80% {
-        transform: scale(1.1);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* Quiz timer */
-    .timer {
-      width: 60px;
-      height: 60px;
-      position: relative;
-    }
-
-    .timer-svg {
-      transform: rotate(-90deg);
-      width: 60px;
-      height: 60px;
-    }
-
-    .timer-circle-bg {
-      fill: none;
-      stroke: var(--slate-200);
-      stroke-width: 4;
-    }
-
-    .timer-circle {
-      fill: none;
-      stroke: var(--indigo-600);
-      stroke-width: 4;
-      stroke-dasharray: 163;
-      stroke-dashoffset: 0;
-      transition: stroke-dashoffset 1s linear;
-    }
-
-    .timer-number {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-weight: 700;
-      color: var(--indigo-600);
-    }
-
-    /* Sentiment analysis */
-    .sentiment-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    .sentiment-positive {
-      background: var(--success-50);
-      color: var(--success-600);
-    }
-
-    .sentiment-negative {
-      background: var(--error-50);
-      color: var(--error-600);
-    }
-
-    .sentiment-neutral {
-      background: var(--slate-100);
-      color: var(--slate-600);
-    }
-
-    /* Blockchain verification badge */
-    .blockchain-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .blockchain-badge:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Loading states */
-    .skeleton {
-      background: linear-gradient(
-        90deg,
-        var(--slate-200) 0%,
-        var(--slate-100) 50%,
-        var(--slate-200) 100%
-      );
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-
-    @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-      100% {
-        background-position: 200% 0;
-      }
-    }
-
-    /* Toast notifications */
-    .toast-container {
-      position: fixed;
-      bottom: var(--space-6);
-      right: var(--space-6);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-
-    .toast {
-      padding: var(--space-3) var(--space-6);
-      background: white;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
-      border-left: 4px solid var(--indigo-600);
-      font-size: 0.875rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      animation: slideIn 0.3s ease;
-      max-width: 320px;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* Accessibility */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
-
-    [role="button"]:focus-visible,
-    button:focus-visible,
-    .tab:focus-visible {
-      outline: 2px solid var(--indigo-500);
-      outline-offset: 2px;
-    }
-
-    /* Offline indicator */
-    .offline-indicator {
-      position: fixed;
-      top: var(--space-4);
-      right: var(--space-4);
-      background: var(--warning-500);
-      color: white;
-      padding: var(--space-2) var(--space-4);
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 500;
-      display: none;
-      z-index: 1001;
-    }
-
-    .offline-indicator.show {
-      display: block;
-    }
-
-    /* Language selector */
-    .language-selector {
-      position: relative;
-      display: inline-block;
-    }
-
-    .language-dropdown {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: white;
-      border: 1px solid var(--slate-200);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
-      max-height: 300px;
-      overflow-y: auto;
-      width: 200px;
-      display: none;
-      z-index: 100;
-    }
-
-    .language-selector:hover .language-dropdown {
-      display: block;
-    }
-
-    .language-option {
-      padding: var(--space-2) var(--space-4);
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .language-option:hover {
-      background: var(--slate-100);
-    }
-
-    /* Gamification elements */
-    .streak-counter {
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
-      background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
-      color: white;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background: var(--indigo-100);
-      color: var(--indigo-700);
-      font-weight: 700;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .nav {
-        flex-direction: column;
-        gap: var(--space-4);
-      }
-      
-      .result-row {
-        flex-wrap: wrap;
-      }
-      
-      .result-label {
-        width: 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenPoll — Live Audience Engagement</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Cabinet+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a28;
+    --border: #2a2a3e;
+    --accent: #7c5cfc;
+    --accent2: #fc5c7d;
+    --accent3: #5cfcb8;
+    --accent4: #fcc45c;
+    --text: #f0f0ff;
+    --muted: #6a6a8a;
+    --radius: 16px;
+  }
+  * { margin:0;padding:0;box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cabinet Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BG GRID */
+  body::before {
+    content:'';
+    position:fixed;inset:0;
+    background-image: linear-gradient(rgba(124,92,252,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(124,92,252,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events:none;z-index:0;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 32px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family:'Syne',sans-serif;font-weight:800;font-size:22px;
+    display:flex;align-items:center;gap:10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .logo-dot { width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+  nav .actions { display:flex;gap:12px; }
+  .btn {
+    padding:10px 20px;border-radius:10px;font-family:'Cabinet Grotesk',sans-serif;
+    font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s;
+  }
+  .btn-ghost { background:transparent;color:var(--muted);border:1px solid var(--border); }
+  .btn-ghost:hover { color:var(--text);border-color:var(--accent); }
+  .btn-primary { background:var(--accent);color:#fff; }
+  .btn-primary:hover { background:#9575ff;transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,92,252,.4); }
+  .btn-danger { background: var(--accent2); color:#fff; }
+  .btn-success { background: var(--accent3); color:#0a0a0f; }
+
+  /* ---- MAIN LAYOUT ---- */
+  .container { max-width:1200px;margin:0 auto;padding:40px 24px;position:relative;z-index:1; }
+
+  /* ---- HERO ---- */
+  .hero {
+    text-align:center;padding:80px 20px 60px;
+  }
+  .hero-badge {
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(124,92,252,.1);border:1px solid rgba(124,92,252,.3);
+    color:var(--accent);padding:6px 16px;border-radius:100px;font-size:13px;
+    font-family:'DM Mono',monospace;margin-bottom:28px;
+  }
+  .hero h1 {
+    font-family:'Syne',sans-serif;font-size:clamp(36px,7vw,88px);
+    font-weight:800;line-height:1.0;letter-spacing:-2px;margin-bottom:20px;
+  }
+  .hero h1 span { 
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent4) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .hero p { font-size:18px;color:var(--muted);max-width:520px;margin:0 auto 40px;line-height:1.7; }
+  .hero-actions { display:flex;gap:16px;justify-content:center;flex-wrap:wrap; }
+  .btn-large { padding:16px 36px;font-size:16px;border-radius:14px; }
+
+  /* ---- TABS ---- */
+  .tabs {
+    display:flex;gap:4px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;padding:6px;margin-bottom:32px;
+    width:fit-content;
+  }
+  .tab {
+    padding:10px 22px;border-radius:10px;cursor:pointer;font-weight:600;
+    font-size:14px;color:var(--muted);transition:all .2s;border:none;background:none;
+  }
+  .tab.active { background:var(--accent);color:#fff; }
+  .tab:hover:not(.active) { color:var(--text); }
+
+  /* ---- SECTION TITLES ---- */
+  .section-title {
+    font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:8px;
+  }
+  .section-sub { color:var(--muted);margin-bottom:28px;font-size:15px; }
+
+  /* ---- FEATURE GRID ---- */
+  .feature-grid {
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+    margin-bottom:48px;
+  }
+  .feature-card {
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:24px 20px;
+    cursor:pointer;transition:all .25s;position:relative;overflow:hidden;
+  }
+  .feature-card:hover { border-color:var(--accent);transform:translateY(-3px); }
+  .feature-card.selected { border-color:var(--accent);background:rgba(124,92,252,.08); }
+  .feature-card .icon {
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:22px;margin-bottom:14px;
+  }
+  .feature-card h3 { font-size:15px;font-weight:700;margin-bottom:6px; }
+  .feature-card p { font-size:13px;color:var(--muted);line-height:1.5; }
+  .feature-card .check {
+    position:absolute;top:14px;right:14px;
+    width:22px;height:22px;border-radius:50%;background:var(--accent);
+    display:none;align-items:center;justify-content:center;font-size:12px;color:#fff;
+  }
+  .feature-card.selected .check { display:flex; }
+
+  /* ---- CREATOR ---- */
+  .creator-grid { display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start; }
+  @media(max-width:900px){ .creator-grid { grid-template-columns:1fr; } }
+
+  .card {
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:28px;
+  }
+
+  .form-group { margin-bottom:20px; }
+  .form-label { display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px; }
+  .form-input, .form-select, .form-textarea {
+    width:100%;background:var(--bg);border:1px solid var(--border);
+    border-radius:10px;padding:12px 16px;color:var(--text);font-family:'Cabinet Grotesk',sans-serif;
+    font-size:15px;transition:border-color .2s;outline:none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--accent); }
+  .form-input.error { border-color: var(--accent2); animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .form-textarea { resize:vertical;min-height:100px; }
+  .form-select option { background:var(--surface2); }
+
+  .options-list { display:flex;flex-direction:column;gap:10px;margin-top:12px; }
+  .option-row { display:flex;gap:10px;align-items:center; }
+  .option-row .form-input { flex:1; }
+  .btn-icon { width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-size:16px; }
+  .btn-icon-remove { background:rgba(252,92,125,.15);color:var(--accent2); }
+  .btn-icon-add { background:rgba(124,92,252,.15);color:var(--accent);width:100%;height:36px;border-radius:8px;margin-top:8px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px dashed rgba(124,92,252,.3);gap:6px; }
+
+  /* PREVIEW CARD */
+  .preview-card {
+    background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);
+    border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px;position:sticky;top:80px;
+  }
+  .preview-label { font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px; }
+  .preview-question { font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:20px;line-height:1.3; }
+  .preview-options { display:flex;flex-direction:column;gap:10px; }
+  .preview-option {
+    background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.2);
+    border-radius:10px;padding:12px 16px;font-size:14px;font-weight:500;
+    cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:space-between;
+  }
+  .preview-option:hover { background:rgba(124,92,252,.15);border-color:var(--accent); }
+  .preview-option.voted { background:rgba(124,92,252,.25);border-color:var(--accent); }
+  .bar-wrap { background:var(--bg);border-radius:100px;height:6px;flex:1;margin-left:12px;overflow:hidden; }
+  .bar { height:100%;border-radius:100px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .6s cubic-bezier(.4,0,.2,1); }
+
+  /* ---- LIVE VIEW ---- */
+  .session-header {
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:32px;flex-wrap:wrap;gap:16px;
+  }
+  .join-code {
+    font-family:'DM Mono',monospace;font-size:36px;font-weight:500;
+    letter-spacing:6px;color:var(--accent3);
+    background:rgba(92,252,184,.05);border:1px solid rgba(92,252,184,.2);
+    padding:16px 28px;border-radius:14px;
+  }
+  @media (max-width: 480px) {
+    .join-code { font-size: 24px; letter-spacing: 3px; padding: 12px; }
+  }
+  .participants-badge {
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:10px 20px;
+    font-size:14px;color:var(--muted);
+  }
+  .participants-badge strong { color:var(--text); }
+
+  .live-results { display:flex;flex-direction:column;gap:14px; }
+  .result-row { display:flex;align-items:center;gap:16px; }
+  .result-label { width:160px;font-size:14px;font-weight:600;flex-shrink:0; }
+  .result-bar-wrap { flex:1;background:var(--surface);border-radius:100px;height:32px;overflow:hidden;position:relative; }
+  .result-bar {
+    height:100%;border-radius:100px;
+    background:linear-gradient(90deg,var(--accent) 0%,var(--accent2) 100%);
+    transition:width .8s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:12px;
+    min-width:2px;
+  }
+  .result-bar.bar2 { background:linear-gradient(90deg,var(--accent2) 0%,var(--accent4) 100%); }
+  .result-bar.bar3 { background:linear-gradient(90deg,var(--accent3) 0%,var(--accent) 100%); }
+  .result-bar.bar4 { background:linear-gradient(90deg,var(--accent4) 0%,var(--accent3) 100%); }
+  .result-count { width:50px;text-align:right;font-family:'DM Mono',monospace;font-size:14px;color:var(--muted); }
+
+  /* WORD CLOUD */
+  .wordcloud { 
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:32px;min-height:200px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;
+  }
+  .word-bubble {
+    padding:8px 18px;border-radius:100px;font-weight:700;cursor:default;
+    transition:transform .2s;animation:fadeIn .4s ease;
+  }
+  .word-bubble:hover { transform:scale(1.1); }
+  @keyframes fadeIn { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
+
+  /* QUIZ */
+  .quiz-card {
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;
+  }
+  .quiz-question { font-family:'Syne',sans-serif;font-size:24px;font-weight:700;margin-bottom:24px; }
+  .quiz-options { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+  @media (max-width: 480px) {
+    .quiz-options { grid-template-columns: 1fr; }
+  }
+  .quiz-option {
+    padding:20px;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;
+    border:2px solid var(--border);background:var(--surface2);transition:all .2s;text-align:center;
+  }
+  .quiz-option:hover { border-color:var(--accent);transform:scale(1.02); }
+  .quiz-option.correct { border-color:var(--accent3);background:rgba(92,252,184,.1);color:var(--accent3); }
+  .quiz-option.wrong { border-color:var(--accent2);background:rgba(252,92,125,.1);color:var(--accent2); }
+  .timer-ring { width:60px;height:60px;position:relative;margin-left:auto; }
+  .timer-ring svg { transform:rotate(-90deg); }
+  .timer-ring circle { transition:stroke-dashoffset .9s linear; }
+  .timer-num {
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--accent4);
+  }
+
+  /* SETTINGS PANEL */
+  .settings-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px; }
+  .setting-row {
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;
+  }
+  .setting-info { flex:1; }
+  .setting-name { font-size:15px;font-weight:600; }
+  .setting-desc { font-size:13px;color:var(--muted);margin-top:2px; }
+  .toggle {
+    width:48px;height:26px;border-radius:100px;position:relative;cursor:pointer;
+    border:none;transition:background .2s;flex-shrink:0;margin-left:16px;
+  }
+  .toggle.on { background:var(--accent); }
+  .toggle.off { background:var(--border); }
+  .toggle::after {
+    content:'';width:20px;height:20px;border-radius:50%;background:#fff;
+    position:absolute;top:3px;transition:left .2s;
+  }
+  .toggle.on::after { left:24px; }
+  .toggle.off::after { left:4px; }
+
+  /* SLIDE NAV */
+  .slide-nav {
+    display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:24px;
+    -webkit-overflow-scrolling: touch;
+  }
+  @media (max-width: 480px) {
+    .slide-nav { flex-wrap: nowrap; overflow-x: auto; }
+    .slide-thumb { min-width: 70px; font-size: 10px; }
+  }
+  .slide-thumb {
+    flex-shrink:0;width:100px;height:64px;border-radius:10px;
+    background:var(--surface);border:2px solid var(--border);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:var(--muted);font-weight:600;text-align:center;padding:4px;transition:all .2s;
+  }
+  .slide-thumb.active { border-color:var(--accent);color:var(--accent); }
+  .slide-thumb:hover:not(.active) { border-color:var(--border);color:var(--text); }
+
+  /* SECTION PAGES */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* STAT CARDS */
+  .stats-row { display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:32px; }
+  .stat-card {
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;
+  }
+  .stat-num { font-family:'Syne',sans-serif;font-size:36px;font-weight:800;margin-bottom:4px; }
+  .stat-label { font-size:13px;color:var(--muted); }
+  .stat-card .stat-num.green { color:var(--accent3); }
+  .stat-card .stat-num.purple { color:var(--accent); }
+  .stat-card .stat-num.pink { color:var(--accent2); }
+  .stat-card .stat-num.yellow { color:var(--accent4); }
+
+  /* NOTIFICATION */
+  .notif {
+    position:fixed;bottom:28px;right:28px;
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:14px;padding:16px 20px;max-width:320px;z-index:999;
+    display:flex;align-items:center;gap:12px;font-size:14px;
+    transform:translateX(120%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 24px 60px rgba(0,0,0,.5);
+  }
+  .notif.show { transform:translateX(0); }
+  .notif .icon { font-size:20px; }
+
+  .divider { border:none;border-top:1px solid var(--border);margin:28px 0; }
+  .flex { display:flex; }
+  .items-center { align-items:center; }
+  .justify-between { justify-content:space-between; }
+  .gap-12 { gap:12px; }
+  .mb-8 { margin-bottom:8px; }
+  .mb-16 { margin-bottom:16px; }
+  .mb-24 { margin-bottom:24px; }
+
+  .tag { display:inline-flex;align-items:center;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600; }
+  .tag-live { background:rgba(252,92,125,.15);color:var(--accent2); }
+  .tag-active { background:rgba(92,252,184,.15);color:var(--accent3); }
+  .tag-draft { background:rgba(124,92,252,.15);color:var(--accent); }
+</style>
 </head>
 <body>
-  <div class="app" role="application" aria-label="OpenPoll Enterprise Platform">
-    <!-- Offline indicator -->
-    <div class="offline-indicator" id="offline-indicator">
-      <i class="fas fa-wifi"></i> You're offline - working in offline mode
+
+<nav>
+  <div class="logo">
+    <span class="logo-dot"></span>
+    OpenPoll
+  </div>
+  <div class="actions">
+    <button class="btn btn-ghost" onclick="showPage('dashboard')">Dashboard</button>
+    <button class="btn btn-ghost" onclick="showPage('join')">Join Session</button>
+    <button class="btn btn-primary" onclick="showPage('create')">+ New Presentation</button>
+  </div>
+</nav>
+
+<!-- NOTIFICATION -->
+<div class="notif" id="notif">
+  <span class="icon">🎉</span>
+  <span id="notif-text">Saved successfully!</span>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div class="page active" id="page-dashboard">
+  <div class="container">
+    <div class="hero">
+      <div class="hero-badge">✦ Open Source &amp; Free Forever</div>
+      <h1>Engage your audience<br><span>in real-time</span></h1>
+      <p>The open-source alternative to Mentimeter. Polls, quizzes, word clouds, Q&amp;A — no limits, fully customizable.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-large" onclick="showPage('create')">🚀 Create Presentation</button>
+        <button class="btn btn-ghost btn-large" onclick="showPage('join')">🔗 Join a Session</button>
+      </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="nav" aria-label="Main navigation">
-      <div class="logo">
-        <i class="fas fa-poll"></i>
-        OpenPoll Enterprise
-        <span class="logo-badge">AI-Powered</span>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num purple" id="dashboard-presentations">12</div><div class="stat-label">Presentations</div></div>
+      <div class="stat-card"><div class="stat-num green" id="dashboard-responses">1,428</div><div class="stat-label">Total Responses</div></div>
+      <div class="stat-card"><div class="stat-num pink" id="dashboard-active">3</div><div class="stat-label">Active Sessions</div></div>
+      <div class="stat-card"><div class="stat-num yellow">97%</div><div class="stat-label">Engagement Rate</div></div>
+    </div>
+
+    <div class="flex items-center justify-between mb-16">
+      <div><div class="section-title">Recent Presentations</div></div>
+      <button class="btn btn-primary" onclick="showPage('create')">+ Create New</button>
+    </div>
+
+    <div class="feature-grid" id="recent-presentations">
+      <div class="feature-card" onclick="showPage('live')">
+        <div class="icon" style="background:rgba(124,92,252,.15);">📊</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <h3>Team All-Hands Q3</h3>
+          <span class="tag tag-live">● LIVE</span>
+        </div>
+        <p>5 slides · 234 participants</p>
       </div>
-      <div class="nav-actions">
-        <button class="btn btn-ghost" onclick="app.showPage('dashboard')" aria-label="Go to dashboard">
-          <i class="fas fa-chart-pie"></i> Dashboard
-        </button>
-        <button class="btn btn-ghost" onclick="app.showPage('join')" aria-label="Join a session">
-          <i class="fas fa-sign-in-alt"></i> Join
-        </button>
-        <button class="btn btn-primary" onclick="app.showPage('create')" aria-label="Create new presentation">
-          <i class="fas fa-plus"></i> New
-        </button>
-        
-        <!-- Language selector -->
-        <div class="language-selector">
-          <button class="btn btn-ghost">
-            <i class="fas fa-globe"></i> EN
-          </button>
-          <div class="language-dropdown">
-            <div class="language-option" onclick="app.setLanguage('en')">🇺🇸 English</div>
-            <div class="language-option" onclick="app.setLanguage('es')">🇪🇸 Español</div>
-            <div class="language-option" onclick="app.setLanguage('fr')">🇫🇷 Français</div>
-            <div class="language-option" onclick="app.setLanguage('de')">🇩🇪 Deutsch</div>
-            <div class="language-option" onclick="app.setLanguage('zh')">🇨🇳 中文</div>
-            <div class="language-option" onclick="app.setLanguage('ja')">🇯🇵 日本語</div>
-            <div class="language-option" onclick="app.setLanguage('hi')">🇮🇳 हिन्दी</div>
+      <div class="feature-card" onclick="showPage('live')">
+        <div class="icon" style="background:rgba(252,92,125,.15);">🧠</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <h3>Product Knowledge Quiz</h3>
+          <span class="tag tag-active">Active</span>
+        </div>
+        <p>8 slides · 89 participants</p>
+      </div>
+      <div class="feature-card" onclick="showPage('create')">
+        <div class="icon" style="background:rgba(92,252,184,.15);">🗳️</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <h3>Customer Feedback</h3>
+          <span class="tag tag-draft">Draft</span>
+        </div>
+        <p>3 slides · Not started</p>
+      </div>
+      <div class="feature-card" onclick="showPage('create')" style="border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:140px;">
+        <div style="font-size:32px;margin-bottom:12px;">+</div>
+        <h3>New Presentation</h3>
+      </div>
+    </div>
+
+    <div class="section-title mb-8">What would you like to create?</div>
+    <div class="section-sub">Choose a slide type to get started</div>
+    <div class="feature-grid" id="slide-type-grid">
+      <div class="feature-card" onclick="selectType(this,'poll')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(124,92,252,.15);">📊</div>
+        <h3>Multiple Choice Poll</h3>
+        <p>Live voting with real-time bar or pie chart results</p>
+      </div>
+      <div class="feature-card" onclick="selectType(this,'wordcloud')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(252,196,92,.15);">☁️</div>
+        <h3>Word Cloud</h3>
+        <p>Audience submits words, most popular appear bigger</p>
+      </div>
+      <div class="feature-card" onclick="selectType(this,'quiz')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(92,252,184,.15);">🏆</div>
+        <h3>Quiz / Trivia</h3>
+        <p>Scored quiz with leaderboard and timed answers</p>
+      </div>
+      <div class="feature-card" onclick="selectType(this,'rating')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(252,92,125,.15);">⭐</div>
+        <h3>Rating Scale</h3>
+        <p>NPS score, star ratings, or emoji reactions</p>
+      </div>
+      <div class="feature-card" onclick="selectType(this,'opentext')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(124,92,252,.15);">💬</div>
+        <h3>Open Text Q&amp;A</h3>
+        <p>Free-form responses with moderation tools</p>
+      </div>
+      <div class="feature-card" onclick="selectType(this,'ranking')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(252,196,92,.15);">🏅</div>
+        <h3>Ranking</h3>
+        <p>Drag-and-drop ordering, see audience consensus</p>
+      </div>
+      <div class="feature-card" onclick="selectType(this,'slider')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(92,252,184,.15);">🎚️</div>
+        <h3>Slider / Scale</h3>
+        <p>Numeric scale input with distribution histogram</p>
+      </div>
+      <div class="feature-card" onclick="selectType(this,'pin')">
+        <div class="check">✓</div>
+        <div class="icon" style="background:rgba(252,92,125,.15);">📍</div>
+        <h3>Pin on Image</h3>
+        <p>Click locations on a map or image to respond</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <button class="btn btn-primary btn-large" onclick="showPage('create')">Build Your Presentation →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CREATE ============ -->
+<div class="page" id="page-create">
+  <div class="container">
+    <div class="flex items-center justify-between mb-24">
+      <div>
+        <div class="section-title">Create Presentation</div>
+        <div class="section-sub">Build your interactive slide deck</div>
+      </div>
+      <div class="flex gap-12">
+        <button class="btn btn-ghost" onclick="showPage('dashboard')">← Back</button>
+        <button class="btn btn-success" onclick="saveAndLaunch()">🚀 Save &amp; Launch</button>
+      </div>
+    </div>
+
+    <!-- SLIDE NAV -->
+    <div class="slide-nav" id="slide-nav">
+      <div class="slide-thumb active" onclick="switchSlide(0,this)">Slide 1<br>Poll</div>
+      <div class="slide-thumb" onclick="switchSlide(1,this)">Slide 2<br>Word Cloud</div>
+      <div class="slide-thumb" onclick="switchSlide(2,this)">Slide 3<br>Quiz</div>
+      <div class="slide-thumb" style="border-style:dashed;" onclick="addSlide()">+ Add</div>
+    </div>
+
+    <div class="creator-grid">
+      <!-- EDITOR -->
+      <div>
+        <div class="card mb-16">
+          <div class="form-group">
+            <label class="form-label">Slide Type</label>
+            <select class="form-select" id="slide-type-select" onchange="updatePreview(); saveCurrentSlide();">
+              <option value="poll">📊 Multiple Choice Poll</option>
+              <option value="wordcloud">☁️ Word Cloud</option>
+              <option value="quiz">🏆 Quiz / Trivia</option>
+              <option value="rating">⭐ Rating Scale</option>
+              <option value="opentext">💬 Open Text Q&amp;A</option>
+              <option value="ranking">🏅 Ranking</option>
+              <option value="slider">🎚️ Slider</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Question</label>
+            <input class="form-input" id="question-input" placeholder="What do you think about...?" oninput="updatePreview(); saveCurrentSlide();" value="What's your favorite programming language?">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Options</label>
+            <div class="options-list" id="options-list">
+              <div class="option-row">
+                <input class="form-input" value="JavaScript" oninput="updatePreview(); saveCurrentSlide();">
+                <button class="btn-icon btn-icon-remove" onclick="removeOption(this)">✕</button>
+              </div>
+              <div class="option-row">
+                <input class="form-input" value="Python" oninput="updatePreview(); saveCurrentSlide();">
+                <button class="btn-icon btn-icon-remove" onclick="removeOption(this)">✕</button>
+              </div>
+              <div class="option-row">
+                <input class="form-input" value="TypeScript" oninput="updatePreview(); saveCurrentSlide();">
+                <button class="btn-icon btn-icon-remove" onclick="removeOption(this)">✕</button>
+              </div>
+              <div class="option-row">
+                <input class="form-input" value="Rust" oninput="updatePreview(); saveCurrentSlide();">
+                <button class="btn-icon btn-icon-remove" onclick="removeOption(this)">✕</button>
+              </div>
+            </div>
+            <div class="btn-icon-add" onclick="addOption()">+ Add Option</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title mb-16" style="font-size:18px;">⚙️ Display Settings</div>
+          <div class="settings-grid">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-name">Show Results Live</div>
+                <div class="setting-desc">Audience sees votes as they come in</div>
+              </div>
+              <button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off'); saveSettings();"></button>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-name">Anonymous Voting</div>
+                <div class="setting-desc">Don't track who voted what</div>
+              </div>
+              <button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off'); saveSettings();"></button>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-name">Multiple Votes</div>
+                <div class="setting-desc">Allow voting for multiple options</div>
+              </div>
+              <button class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off'); saveSettings();"></button>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-name">Timer</div>
+                <div class="setting-desc">Auto-close after time limit</div>
+              </div>
+              <button class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off'); saveSettings();"></button>
+            </div>
           </div>
         </div>
       </div>
-    </nav>
 
-    <!-- Toast notifications container -->
-    <div class="toast-container" id="toast-container" role="status" aria-live="polite"></div>
-
-    <!-- Main content -->
-    <main id="app-root"></main>
+      <!-- PREVIEW -->
+      <div class="preview-card">
+        <div class="preview-label">📱 Live Preview</div>
+        <div class="preview-question" id="preview-question">What's your favorite programming language?</div>
+        <div class="preview-options" id="preview-options">
+          <div class="preview-option" onclick="votePreview(this)">
+            JavaScript
+            <div class="bar-wrap"><div class="bar" style="width:65%"></div></div>
+          </div>
+          <div class="preview-option" onclick="votePreview(this)">
+            Python
+            <div class="bar-wrap"><div class="bar" style="width:45%"></div></div>
+          </div>
+          <div class="preview-option" onclick="votePreview(this)">
+            TypeScript
+            <div class="bar-wrap"><div class="bar" style="width:30%"></div></div>
+          </div>
+          <div class="preview-option" onclick="votePreview(this)">
+            Rust
+            <div class="bar-wrap"><div class="bar" style="width:20%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);text-align:center;">
+          🔗 openpoll.app/join/<strong style="color:var(--accent3)">XK7P</strong>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <script>
-    // ===== PRODUCTION-GRADE MODULAR ARCHITECTURE =====
-    (function() {
-      'use strict';
-
-      // ===== ERROR BOUNDARY =====
-      class ErrorBoundary {
-        static wrap(fn, context) {
-          return function(...args) {
-            try {
-              return fn.apply(this, args);
-            } catch (error) {
-              console.error(`Error in ${context}:`, error);
-              app.notify(`Something went wrong: ${error.message}`, 'error');
-              return null;
-            }
-          };
-        }
-      }
-
-      // ===== VALIDATION UTILITIES =====
-      const Validators = {
-        required: (value) => value?.trim()?.length > 0,
-        minLength: (value, min) => value?.length >= min,
-        maxLength: (value, max) => value?.length <= max,
-        isCode: (value) => /^[A-Z0-9]{4}$/.test(value),
-        sanitize: (value) => value?.replace(/[<>]/g, '') || '',
-        
-        // Advanced validation
-        isEmail: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-        isURL: (value) => {
-          try {
-            new URL(value);
-            return true;
-          } catch {
-            return false;
-          }
-        },
-        
-        // XSS prevention
-        escapeHtml: (text) => {
-          const div = document.createElement('div');
-          div.textContent = text;
-          return div.innerHTML;
-        }
-      };
-
-      // ===== BLOCKCHAIN VERIFICATION SERVICE =====
-      class BlockchainService {
-        constructor() {
-          this.chain = [];
-          this.pendingVotes = [];
-          this.merkleTrees = new Map();
-        }
-
-        async createAuditTrail(sessionId, votes) {
-          // Create Merkle tree for vote verification
-          const leaves = votes.map(v => this.hash(JSON.stringify(v)));
-          const merkleTree = this.buildMerkleTree(leaves);
-          
-          const audit = {
-            sessionId,
-            merkleRoot: merkleTree.root,
-            timestamp: Date.now(),
-            voteCount: votes.length,
-            hash: this.hash(JSON.stringify({ sessionId, votes })),
-            verifiable: true
-          };
-
-          this.merkleTrees.set(sessionId, merkleTree);
-          return audit;
-        }
-
-        hash(data) {
-          // Simple hash function (in production, use SHA-256)
-          let hash = 0;
-          for (let i = 0; i < data.length; i++) {
-            const char = data.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-          }
-          return Math.abs(hash).toString(16);
-        }
-
-        buildMerkleTree(leaves) {
-          const tree = [leaves];
-          
-          while (tree[0].length > 1) {
-            const level = [];
-            for (let i = 0; i < tree[0].length; i += 2) {
-              const left = tree[0][i];
-              const right = tree[0][i + 1] || left;
-              level.push(this.hash(left + right));
-            }
-            tree.unshift(level);
-          }
-
-          return {
-            root: tree[0][0],
-            levels: tree,
-            getProof: (index) => {
-              const proof = [];
-              let idx = index;
-              
-              for (let i = tree.length - 1; i > 0; i--) {
-                const level = tree[i];
-                const isRight = idx % 2 === 1;
-                const siblingIdx = isRight ? idx - 1 : idx + 1;
-                
-                if (siblingIdx < level.length) {
-                  proof.push({
-                    position: isRight ? 'left' : 'right',
-                    hash: level[siblingIdx]
-                  });
-                }
-                
-                idx = Math.floor(idx / 2);
-              }
-              
-              return proof;
-            }
-          };
-        }
-
-        verifyVote(sessionId, vote, proof) {
-          const merkleTree = this.merkleTrees.get(sessionId);
-          if (!merkleTree) return false;
-
-          // Verify the vote using Merkle proof
-          let hash = this.hash(JSON.stringify(vote));
-          
-          for (const p of proof) {
-            hash = p.position === 'left' 
-              ? this.hash(p.hash + hash)
-              : this.hash(hash + p.hash);
-          }
-
-          return hash === merkleTree.root;
-        }
-      }
-
-      // ===== AI SENTIMENT ANALYSIS ENGINE =====
-      class SentimentAI {
-        constructor() {
-          this.model = {
-            positive: ['good', 'great', 'excellent', 'amazing', 'love', 'best', 'awesome', 'fantastic'],
-            negative: ['bad', 'worst', 'hate', 'terrible', 'awful', 'poor', 'disappointing'],
-            intense: ['very', 'really', 'extremely', 'absolutely', 'completely']
-          };
-        }
-
-        async analyze(text) {
-          const words = text.toLowerCase().split(/\s+/);
-          let score = 0;
-          let intensity = 1;
-          let emotions = {
-            joy: 0,
-            anger: 0,
-            surprise: 0,
-            sadness: 0,
-            trust: 0
-          };
-
-          for (const word of words) {
-            // Basic sentiment
-            if (this.model.positive.includes(word)) {
-              score += 1 * intensity;
-              emotions.joy += 1;
-              emotions.trust += 0.5;
-            }
-            if (this.model.negative.includes(word)) {
-              score -= 1 * intensity;
-              emotions.anger += 1;
-              emotions.sadness += 0.5;
-            }
-            if (this.model.intense.includes(word)) {
-              intensity = 1.5;
-            }
-
-            // Surprise detection
-            if (word.includes('!') || word === 'wow' || word === 'omg') {
-              emotions.surprise += 1;
-            }
-          }
-
-          // Normalize emotions
-          const total = Object.values(emotions).reduce((a, b) => a + b, 0);
-          if (total > 0) {
-            for (let key in emotions) {
-              emotions[key] = emotions[key] / total;
-            }
-          }
-
-          return {
-            score: Math.max(-1, Math.min(1, score / 10)),
-            sentiment: score > 0.2 ? 'positive' : score < -0.2 ? 'negative' : 'neutral',
-            emotions,
-            confidence: Math.min(1, Math.abs(score) / 2 + 0.5)
-          };
-        }
-      }
-
-      // ===== OFFLINE STORAGE ENGINE =====
-      class OfflineStorage {
-        constructor() {
-          this.dbName = 'OpenPollDB';
-          this.version = 2;
-          this.db = null;
-          this.init();
-        }
-
-        async init() {
-          return new Promise((resolve, reject) => {
-            const request = indexedDB.open(this.dbName, this.version);
-
-            request.onerror = () => reject(request.error);
-            request.onsuccess = () => {
-              this.db = request.result;
-              resolve();
-            };
-
-            request.onupgradeneeded = (event) => {
-              const db = event.target.result;
-              
-              if (!db.objectStoreNames.contains('presentations')) {
-                db.createObjectStore('presentations', { keyPath: 'id' });
-              }
-              
-              if (!db.objectStoreNames.contains('votes')) {
-                const voteStore = db.createObjectStore('votes', { keyPath: 'id', autoIncrement: true });
-                voteStore.createIndex('synced', 'synced');
-                voteStore.createIndex('sessionId', 'sessionId');
-              }
-              
-              if (!db.objectStoreNames.contains('analytics')) {
-                db.createObjectStore('analytics', { keyPath: 'id' });
-              }
-            };
-          });
-        }
-
-        async save(store, data) {
-          if (!this.db) await this.init();
-          
-          return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction(store, 'readwrite');
-            const objectStore = transaction.objectStore(store);
-            const request = objectStore.put(data);
-
-            request.onsuccess = () => resolve(request.result);
-            request.onerror = () => reject(request.error);
-          });
-        }
-
-        async getAll(store, query = {}) {
-          if (!this.db) await this.init();
-          
-          return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction(store, 'readonly');
-            const objectStore = transaction.objectStore(store);
-            const request = objectStore.getAll();
-
-            request.onsuccess = () => {
-              let results = request.result;
-              
-              // Apply filters
-              if (Object.keys(query).length > 0) {
-                results = results.filter(item => {
-                  return Object.entries(query).every(([key, value]) => 
-                    item[key] === value
-                  );
-                });
-              }
-              
-              resolve(results);
-            };
-            
-            request.onerror = () => reject(request.error);
-          });
-        }
-
-        async getUnsynced(store) {
-          return this.getAll(store, { synced: false });
-        }
-      }
-
-      // ===== TRANSLATION ENGINE =====
-      class TranslationEngine {
-        constructor() {
-          this.currentLanguage = 'en';
-          this.translations = new Map();
-          this.supportedLanguages = [
-            { code: 'en', name: 'English', flag: '🇺🇸' },
-            { code: 'es', name: 'Español', flag: '🇪🇸' },
-            { code: 'fr', name: 'Français', flag: '🇫🇷' },
-            { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-            { code: 'zh', name: '中文', flag: '🇨🇳' },
-            { code: 'ja', name: '日本語', flag: '🇯🇵' },
-            { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' }
-          ];
-
-          // Mock translations (in production, use real API)
-          this.dictionary = {
-            'Create Presentation': {
-              es: 'Crear Presentación',
-              fr: 'Créer une Présentation',
-              de: 'Präsentation Erstellen',
-              zh: '创建演示',
-              ja: 'プレゼンテーション作成',
-              hi: 'प्रस्तुति बनाएं'
-            },
-            'Join Session': {
-              es: 'Unirse a Sesión',
-              fr: 'Rejoindre la Session',
-              de: 'Sitzung Beitreten',
-              zh: '加入会议',
-              ja: 'セッションに参加',
-              hi: 'सत्र में शामिल हों'
-            }
-          };
-        }
-
-        async translate(text, targetLang) {
-          if (targetLang === 'en') return text;
-          
-          // Check cache
-          const cacheKey = `${text}:${targetLang}`;
-          if (this.translations.has(cacheKey)) {
-            return this.translations.get(cacheKey);
-          }
-
-          // Mock translation (in production, use Google Translate API)
-          let translated = text;
-          if (this.dictionary[text] && this.dictionary[text][targetLang]) {
-            translated = this.dictionary[text][targetLang];
-          }
-
-          this.translations.set(cacheKey, translated);
-          return translated;
-        }
-
-        async translateBatch(texts, targetLang) {
-          return Promise.all(texts.map(t => this.translate(t, targetLang)));
-        }
-      }
-
-      // ===== GAMIFICATION ENGINE =====
-      class GamificationEngine {
-        constructor() {
-          this.streaks = new Map();
-          this.scores = new Map();
-          this.badges = new Map();
-          this.leaderboard = [];
-        }
-
-        recordActivity(userId, activity) {
-          // Update streak
-          const lastActivity = this.streaks.get(userId) || { date: null, count: 0 };
-          const today = new Date().toDateString();
-          
-          if (lastActivity.date === today) {
-            // Already counted today
-          } else if (lastActivity.date === new Date(Date.now() - 86400000).toDateString()) {
-            // Consecutive day
-            lastActivity.count++;
-          } else {
-            // Streak broken
-            lastActivity.count = 1;
-          }
-          
-          lastActivity.date = today;
-          this.streaks.set(userId, lastActivity);
-
-          // Award points
-          let points = this.scores.get(userId) || 0;
-          points += this.calculatePoints(activity);
-          this.scores.set(userId, points);
-
-          // Check for badges
-          this.checkBadges(userId);
-
-          return {
-            streak: lastActivity.count,
-            points,
-            badges: this.badges.get(userId) || []
-          };
-        }
-
-        calculatePoints(activity) {
-          switch (activity.type) {
-            case 'vote': return 10;
-            case 'question': return 20;
-            case 'correctAnswer': return 50;
-            case 'streakDay': return 100;
-            default: return 5;
-          }
-        }
-
-        checkBadges(userId) {
-          const userBadges = this.badges.get(userId) || [];
-          const streak = this.streaks.get(userId)?.count || 0;
-          const points = this.scores.get(userId) || 0;
-
-          // Streak badges
-          if (streak >= 7 && !userBadges.includes('week_streak')) {
-            userBadges.push('week_streak');
-            app.notify('🏆 Congratulations! You earned the Week Streak badge!', 'success');
-          }
-          
-          if (streak >= 30 && !userBadges.includes('month_streak')) {
-            userBadges.push('month_streak');
-            app.notify('🌟 Amazing! You earned the Month Streak badge!', 'success');
-          }
-
-          // Points badges
-          if (points >= 1000 && !userBadges.includes('bronze')) {
-            userBadges.push('bronze');
-            app.notify('🥉 You earned the Bronze Contributor badge!', 'success');
-          }
-          
-          if (points >= 5000 && !userBadges.includes('silver')) {
-            userBadges.push('silver');
-            app.notify('🥈 You earned the Silver Contributor badge!', 'success');
-          }
-          
-          if (points >= 10000 && !userBadges.includes('gold')) {
-            userBadges.push('gold');
-            app.notify('🥇 You earned the Gold Contributor badge!', 'success');
-          }
-
-          this.badges.set(userId, userBadges);
-        }
-      }
-
-      // ===== PREDICTIVE ANALYTICS =====
-      class PredictiveAnalytics {
-        constructor() {
-          this.historicalData = [];
-        }
-
-        predictEngagement(presentation) {
-          const features = this.extractFeatures(presentation);
-          
-          // Simple prediction model (in production, use TensorFlow.js)
-          let baseEngagement = 0.7; // 70% baseline
-          
-          // Adjust based on features
-          if (features.questionCount > 5) baseEngagement += 0.1;
-          if (features.hasQuiz) baseEngagement += 0.15;
-          if (features.hasWordCloud) baseEngagement += 0.05;
-          if (features.timeOfDay > 9 && features.timeOfDay < 17) baseEngagement += 0.1;
-          if (features.dayOfWeek >= 1 && features.dayOfWeek <= 4) baseEngagement += 0.1;
-          
-          return {
-            predictedEngagement: Math.min(1, baseEngagement),
-            peakTime: this.predictPeakTime(presentation),
-            riskSlides: this.identifyRiskSlides(presentation),
-            recommendations: this.generateRecommendations(presentation)
-          };
-        }
-
-        extractFeatures(presentation) {
-          return {
-            questionCount: presentation.slides?.length || 0,
-            hasQuiz: presentation.slides?.some(s => s.type === 'quiz'),
-            hasWordCloud: presentation.slides?.some(s => s.type === 'wordcloud'),
-            timeOfDay: new Date().getHours(),
-            dayOfWeek: new Date().getDay(),
-            audienceSize: presentation.estimatedAudience || 50
-          };
-        }
-
-        predictPeakTime(presentation) {
-          // Simple prediction
-          const now = new Date();
-          const peakHour = Math.min(23, Math.max(0, now.getHours() + 1));
-          return `${peakHour}:00 - ${peakHour + 1}:00`;
-        }
-
-        identifyRiskSlides(presentation) {
-          const risks = [];
-          
-          presentation.slides?.forEach((slide, index) => {
-            if (slide.type === 'quiz' && slide.options?.length > 4) {
-              risks.push({
-                slide: index + 1,
-                reason: 'Quiz with too many options may overwhelm participants',
-                severity: 'medium'
-              });
-            }
-            
-            if (slide.type === 'wordcloud' && !slide.question) {
-              risks.push({
-                slide: index + 1,
-                reason: 'Word cloud without a question may confuse participants',
-                severity: 'high'
-              });
-            }
-          });
-
-          return risks;
-        }
-
-        generateRecommendations(presentation) {
-          const recs = [];
-          
-          if (presentation.slides?.length < 3) {
-            recs.push('Add more slides to increase engagement');
-          }
-          
-          if (!presentation.slides?.some(s => s.type === 'quiz')) {
-            recs.push('Include a quiz to boost participation');
-          }
-          
-          return recs;
-        }
-      }
-
-      // ===== API SERVICE LAYER =====
-      class ApiService {
-        constructor() {
-          this.baseUrl = 'wss://api.openpoll.com/v1';
-          this.socket = null;
-          this.reconnectAttempts = 0;
-          this.maxReconnectAttempts = 5;
-          this.retryQueue = [];
-          this.offlineStorage = new OfflineStorage();
-        }
-
-        async connect() {
-          // In production, implement real WebSocket connection
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              this.reconnectAttempts = 0;
-              this.processRetryQueue();
-              resolve(true);
-            }, 100);
-          });
-        }
-
-        async request(endpoint, data, options = {}) {
-          // Check if online
-          if (!navigator.onLine) {
-            if (options.offline === false) {
-              throw new Error('Network offline');
-            }
-            
-            // Store for later sync
-            await this.offlineStorage.save('pendingRequests', {
-              endpoint,
-              data,
-              timestamp: Date.now()
-            });
-            
-            return { offline: true, queued: true };
-          }
-
-          // Make actual request (mock for now)
-          return { success: true, data };
-        }
-
-        async processRetryQueue() {
-          const pending = await this.offlineStorage.getAll('pendingRequests', { synced: false });
-          
-          for (const req of pending) {
-            try {
-              await this.request(req.endpoint, req.data, { offline: false });
-              await this.offlineStorage.save('pendingRequests', { ...req, synced: true });
-            } catch (error) {
-              console.log('Failed to sync request', error);
-            }
-          }
-        }
-      }
-
-      // ===== STORE (State Management) =====
-      class Store {
-        constructor() {
-          this.state = {
-            slides: [
-              { 
-                id: '1', 
-                type: 'poll', 
-                question: "What's your favorite programming language?", 
-                options: ['JavaScript', 'Python', 'TypeScript', 'Rust'],
-                votes: [145, 103, 67, 31],
-                createdAt: Date.now()
-              },
-              { 
-                id: '2', 
-                type: 'wordcloud', 
-                question: 'Describe AI in one word', 
-                options: [],
-                words: [
-                  { text: 'Powerful', size: 2.2, sentiment: 'positive' },
-                  { text: 'Revolutionary', size: 1.5, sentiment: 'positive' },
-                  { text: 'Future', size: 1.8, sentiment: 'neutral' }
-                ]
-              },
-              { 
-                id: '3', 
-                type: 'quiz', 
-                question: 'What does HTTP stand for?', 
-                options: [
-                  'HyperText Markup Protocol',
-                  'HyperText Transfer Protocol',
-                  'High Transfer Text Protocol',
-                  'HyperText Tracking Protocol'
-                ],
-                correct: 1,
-                leaderboard: [
-                  { name: 'Alice Chen', score: 2840 },
-                  { name: 'Bob Smith', score: 2650 },
-                  { name: 'Carol Jones', score: 2490 }
-                ]
-              }
-            ],
-            currentSlide: 0,
-            sessionCode: this.generateCode(),
-            participants: 234,
-            settings: {
-              showLiveResults: true,
-              anonymousVoting: true,
-              multipleVotes: false,
-              timer: false
-            },
-            user: {
-              id: 'user_' + Math.random().toString(36).substr(2, 9),
-              name: 'Guest User',
-              points: 0,
-              streak: 0,
-              badges: []
-            },
-            blockchainVerification: null
-          };
-          
-          this.listeners = new Set();
-          this.offlineStorage = new OfflineStorage();
-          this.sentimentAI = new SentimentAI();
-          this.blockchain = new BlockchainService();
-          this.gamification = new GamificationEngine();
-          this.analytics = new PredictiveAnalytics();
-          this.translator = new TranslationEngine();
-          
-          this.loadFromStorage();
-          this.setupOfflineDetection();
-        }
-
-        setupOfflineDetection() {
-          window.addEventListener('online', () => {
-            document.getElementById('offline-indicator').classList.remove('show');
-            app.notify('Back online! Syncing data...', 'success');
-            this.syncOfflineData();
-          });
-
-          window.addEventListener('offline', () => {
-            document.getElementById('offline-indicator').classList.add('show');
-            app.notify('Working in offline mode. Changes will sync when online.', 'warning');
-          });
-        }
-
-        async syncOfflineData() {
-          const unsynced = await this.offlineStorage.getUnsynced('votes');
-          
-          for (const vote of unsynced) {
-            try {
-              // Process vote
-              const slide = this.state.slides.find(s => s.id === vote.slideId);
-              if (slide && slide.type === 'poll') {
-                slide.votes[vote.optionIndex] = (slide.votes[vote.optionIndex] || 0) + 1;
-              }
-              
-              // Mark as synced
-              await this.offlineStorage.save('votes', { ...vote, synced: true });
-            } catch (error) {
-              console.log('Failed to sync vote', error);
-            }
-          }
-          
-          this.notifyListeners();
-        }
-
-        getState() {
-          return { ...this.state };
-        }
-
-        subscribe(listener) {
-          this.listeners.add(listener);
-          return () => this.listeners.delete(listener);
-        }
-
-        notifyListeners() {
-          this.listeners.forEach(listener => listener(this.state));
-          this.saveToStorage();
-        }
-
-        async addVote(slideId, optionIndex) {
-          const slide = this.state.slides.find(s => s.id === slideId);
-          if (!slide || slide.type !== 'poll') return;
-
-          // Gamification
-          const activity = this.gamification.recordActivity(this.state.user.id, {
-            type: 'vote',
-            slideId
-          });
-          
-          this.state.user.points = activity.points;
-          this.state.user.streak = activity.streak;
-          this.state.user.badges = activity.badges;
-
-          // Offline-first voting
-          const vote = {
-            id: Date.now().toString(),
-            slideId,
-            optionIndex,
-            timestamp: Date.now(),
-            synced: navigator.onLine
-          };
-
-          await this.offlineStorage.save('votes', vote);
-
-          if (navigator.onLine) {
-            slide.votes[optionIndex] = (slide.votes[optionIndex] || 0) + 1;
-            this.state.participants++;
-          }
-
-          this.notifyListeners();
-        }
-
-        async addWord(slideId, word) {
-          const slide = this.state.slides.find(s => s.id === slideId);
-          if (!slide || slide.type !== 'wordcloud') return;
-
-          // Analyze sentiment
-          const sentiment = await this.sentimentAI.analyze(word);
-          
-          if (!slide.words) slide.words = [];
-          slide.words.push({
-            text: word,
-            size: 1 + Math.random(),
-            sentiment: sentiment.sentiment,
-            emotions: sentiment.emotions,
-            confidence: sentiment.confidence
-          });
-
-          // Gamification
-          this.gamification.recordActivity(this.state.user.id, {
-            type: 'question',
-            slideId
-          });
-
-          this.notifyListeners();
-        }
-
-        async endSession() {
-          // Create blockchain audit trail
-          const allVotes = this.state.slides
-            .filter(s => s.type === 'poll')
-            .flatMap(s => s.votes || []);
-          
-          this.state.blockchainVerification = await this.blockchain.createAuditTrail(
-            this.state.sessionCode,
-            allVotes
-          );
-
-          this.notifyListeners();
-          return this.state.blockchainVerification;
-        }
-
-        generateCode() {
-          const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-          return Array.from({ length: 4 }, () => 
-            chars[Math.floor(Math.random() * chars.length)]
-          ).join('');
-        }
-
-        saveToStorage() {
-          try {
-            localStorage.setItem('openpoll_state', JSON.stringify({
-              slides: this.state.slides,
-              settings: this.state.settings,
-              user: this.state.user
-            }));
-          } catch (e) {
-            console.warn('Failed to save to localStorage', e);
-          }
-        }
-
-        loadFromStorage() {
-          try {
-            const saved = localStorage.getItem('openpoll_state');
-            if (saved) {
-              const { slides, settings, user } = JSON.parse(saved);
-              if (slides) this.state.slides = slides;
-              if (settings) this.state.settings = settings;
-              if (user) this.state.user = user;
-            }
-          } catch (e) {
-            console.warn('Failed to load from localStorage', e);
-          }
-        }
-      }
-
-      // ===== UI COMPONENTS =====
-      const Components = {
-        // Toast notification
-        toast: (message, type = 'success', duration = 3000) => {
-          const container = document.getElementById('toast-container');
-          const toast = document.createElement('div');
-          toast.className = 'toast';
-          toast.setAttribute('role', 'alert');
-          
-          const icons = {
-            success: '✅',
-            error: '❌',
-            warning: '⚠️',
-            info: 'ℹ️'
-          };
-          
-          toast.innerHTML = `${icons[type] || '✅'} ${message}`;
-          container.appendChild(toast);
-          
-          setTimeout(() => {
-            toast.style.animation = 'slideIn 0.3s reverse';
-            setTimeout(() => toast.remove(), 300);
-          }, duration);
-        },
-
-        // Dashboard
-        Dashboard: (state) => {
-          const totalVotes = state.slides
-            .filter(s => s.type === 'poll')
-            .reduce((acc, s) => acc + (s.votes?.reduce((a, b) => a + b, 0) || 0), 0);
-
-          const predictions = app.analytics.predictEngagement(state);
-
-          return `
-            <div>
-              <!-- User stats -->
-              <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-6); flex-wrap: wrap;">
-                <div class="streak-counter">
-                  <i class="fas fa-fire"></i> ${state.user.streak} day streak
-                </div>
-                <div class="sentiment-badge sentiment-positive">
-                  <i class="fas fa-star"></i> ${state.user.points} points
-                </div>
-                ${state.user.badges.map(badge => `
-                  <div class="badge" title="${badge}">
-                    ${badge === 'week_streak' ? '7️⃣' : 
-                      badge === 'month_streak' ? '📅' : 
-                      badge === 'bronze' ? '🥉' : 
-                      badge === 'silver' ? '🥈' : 
-                      badge === 'gold' ? '🥇' : '🎖️'}
-                  </div>
-                `).join('')}
-              </div>
-
-              <!-- Analytics cards -->
-              <div class="grid" style="margin-bottom: var(--space-6);">
-                <div class="card">
-                  <div style="font-size: 2rem; font-weight: 700; color: var(--indigo-600);">${state.slides.length}</div>
-                  <div style="color: var(--slate-600);">Presentations</div>
-                </div>
-                <div class="card">
-                  <div style="font-size: 2rem; font-weight: 700; color: var(--indigo-600);">${totalVotes}</div>
-                  <div style="color: var(--slate-600);">Total Responses</div>
-                </div>
-                <div class="card">
-                  <div style="font-size: 2rem; font-weight: 700; color: var(--indigo-600);">${state.participants}</div>
-                  <div style="color: var(--slate-600);">Active Participants</div>
-                </div>
-                <div class="card">
-                  <div style="font-size: 2rem; font-weight: 700; color: var(--indigo-600);">
-                    ${Math.round(predictions.predictedEngagement * 100)}%
-                  </div>
-                  <div style="color: var(--slate-600);">Predicted Engagement</div>
-                </div>
-              </div>
-
-              <!-- AI Recommendations -->
-              <div class="card" style="margin-bottom: var(--space-6);">
-                <h3 class="form-label" style="font-size: 1.125rem; margin-bottom: var(--space-4);">
-                  <i class="fas fa-robot" style="color: var(--indigo-600);"></i> AI Recommendations
-                </h3>
-                <div style="display: flex; flex-direction: column; gap: var(--space-2);">
-                  ${predictions.recommendations.map(rec => `
-                    <div style="display: flex; align-items: center; gap: var(--space-2);">
-                      <i class="fas fa-lightbulb" style="color: var(--warning-500);"></i>
-                      <span>${rec}</span>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-
-              <!-- Recent presentations -->
-              <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-                <div class="card">
-                  <h3 class="form-label" style="font-size: 1.125rem; margin-bottom: var(--space-4);">Recent Presentations</h3>
-                  <div style="display: flex; flex-direction: column; gap: var(--space-3);">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <span>Team All-Hands Q3</span>
-                      <span class="sentiment-badge sentiment-positive" style="font-size: 0.75rem;">Live</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <span>Product Knowledge Quiz</span>
-                      <span class="sentiment-badge sentiment-neutral" style="font-size: 0.75rem;">Active</span>
-                    </div>
-                  </div>
-                  <button class="btn btn-primary" style="width: 100%; margin-top: var(--space-4);" onclick="app.showPage('create')">
-                    + Create New
-                  </button>
-                </div>
-
-                <div class="card card-premium">
-                  <h3 class="form-label" style="font-size: 1.125rem; margin-bottom: var(--space-4); color: white;">
-                    ⚡ Premium Features (Free)
-                  </h3>
-                  <div style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4);">
-                    <div style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255,255,255,0.9);">
-                      <i class="fas fa-check-circle"></i> AI Sentiment Analysis
-                    </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255,255,255,0.9);">
-                      <i class="fas fa-check-circle"></i> Blockchain Verification
-                    </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255,255,255,0.9);">
-                      <i class="fas fa-check-circle"></i> Offline Mode
-                    </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255,255,255,0.9);">
-                      <i class="fas fa-check-circle"></i> 50+ Languages
-                    </div>
-                  </div>
-                  <button class="btn" style="width: 100%;" onclick="app.showPage('create')">
-                    Start Free →
-                  </button>
-                </div>
-              </div>
+</div>
+
+<!-- ============ LIVE SESSION ============ -->
+<div class="page" id="page-live">
+  <div class="container">
+    <div class="session-header">
+      <div>
+        <div class="section-title">🔴 Live Session</div>
+        <div class="section-sub">Team All-Hands Q3 · <span class="tag tag-live">● Broadcasting</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+        <div class="join-code" id="live-join-code">XK7P</div>
+        <div class="participants-badge">👥 <strong id="part-count">234</strong> participants</div>
+      </div>
+    </div>
+
+    <div class="tabs mb-24">
+      <button class="tab active" onclick="switchLiveTab('poll',this)">📊 Live Poll</button>
+      <button class="tab" onclick="switchLiveTab('wordcloud',this)">☁️ Word Cloud</button>
+      <button class="tab" onclick="switchLiveTab('quiz',this)">🏆 Quiz</button>
+      <button class="tab" onclick="switchLiveTab('qa',this)">💬 Q&amp;A</button>
+    </div>
+
+    <!-- POLL RESULTS -->
+    <div id="live-tab-poll">
+      <div class="card mb-16">
+        <div class="flex items-center justify-between mb-24">
+          <div class="preview-question" id="live-question" style="font-size:22px;">What's your favorite programming language?</div>
+          <button class="btn btn-primary" onclick="simulateVote()">+ Simulate Votes</button>
+        </div>
+        <div class="live-results" id="live-results">
+          <div class="result-row">
+            <div class="result-label" id="live-opt-0-label">JavaScript</div>
+            <div class="result-bar-wrap"><div class="result-bar" id="bar-0" style="width:62%"><span style="font-size:12px;color:rgba(255,255,255,.7)">62%</span></div></div>
+            <div class="result-count" id="cnt-0">145</div>
+          </div>
+          <div class="result-row">
+            <div class="result-label" id="live-opt-1-label">Python</div>
+            <div class="result-bar-wrap"><div class="result-bar bar2" id="bar-1" style="width:44%"><span style="font-size:12px;color:rgba(255,255,255,.7)">44%</span></div></div>
+            <div class="result-count" id="cnt-1">103</div>
+          </div>
+          <div class="result-row">
+            <div class="result-label" id="live-opt-2-label">TypeScript</div>
+            <div class="result-bar-wrap"><div class="result-bar bar3" id="bar-2" style="width:29%"><span style="font-size:12px;color:rgba(255,255,255,.7)">29%</span></div></div>
+            <div class="result-count" id="cnt-2">67</div>
+          </div>
+          <div class="result-row">
+            <div class="result-label" id="live-opt-3-label">Rust</div>
+            <div class="result-bar-wrap"><div class="result-bar bar4" id="bar-3" style="width:13%"><span style="font-size:12px;color:rgba(255,255,255,.7)">13%</span></div></div>
+            <div class="result-count" id="cnt-3">31</div>
+          </div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-ghost" onclick="showPage('create')">← Edit Slides</button>
+          <button class="btn btn-primary" onclick="nextSlide()">Next Slide →</button>
+          <button class="btn btn-danger" onclick="endSession()">End Session</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORDCLOUD -->
+    <div id="live-tab-wordcloud" style="display:none;">
+      <div class="card mb-16">
+        <div class="preview-question mb-24" style="font-size:22px;" id="wordcloud-question">Describe AI in one word</div>
+        <div class="wordcloud" id="wordcloud-display"></div>
+        <div style="margin-top:20px;display:flex;gap:10px;">
+          <input class="form-input" id="word-input" placeholder="Add a word..." style="flex:1;" onkeydown="if(event.key==='Enter')addWord()">
+          <button class="btn btn-primary" onclick="addWord()">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="live-tab-quiz" style="display:none;">
+      <div class="quiz-card">
+        <div class="flex items-center justify-between mb-24">
+          <div class="quiz-question" id="quiz-question">What does HTTP stand for?</div>
+          <div class="timer-ring">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <circle cx="30" cy="30" r="26" fill="none" stroke="var(--border)" stroke-width="4"/>
+              <circle id="timer-circle" cx="30" cy="30" r="26" fill="none" stroke="var(--accent4)" stroke-width="4"
+                stroke-dasharray="163" stroke-dashoffset="0"/>
+            </svg>
+            <div class="timer-num" id="timer-num">20</div>
+          </div>
+        </div>
+        <div class="quiz-options" id="quiz-options">
+          <div class="quiz-option" onclick="answerQuiz(this,false)">A) HyperText Markup Protocol</div>
+          <div class="quiz-option" onclick="answerQuiz(this,true)">B) HyperText Transfer Protocol</div>
+          <div class="quiz-option" onclick="answerQuiz(this,false)">C) High Transfer Text Protocol</div>
+          <div class="quiz-option" onclick="answerQuiz(this,false)">D) HyperText Tracking Protocol</div>
+        </div>
+        <div id="quiz-feedback" style="margin-top:20px;display:none;padding:16px;border-radius:12px;font-weight:600;"></div>
+        <div style="margin-top:20px;">
+          <div style="font-size:14px;color:var(--muted);margin-bottom:8px;">Leaderboard</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="leaderboard">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(252,196,92,.08);border:1px solid rgba(252,196,92,.2);border-radius:10px;">
+              <span style="font-size:18px;">🥇</span><span style="flex:1;font-weight:600;">Alice Chen</span><span style="font-family:'DM Mono',monospace;color:var(--accent4);">2840 pts</span>
             </div>
-          `;
-        },
-
-        // Creator
-        Creator: (state) => {
-          const currentSlide = state.slides[state.currentSlide];
-
-          return `
-            <div class="card" style="max-width: 800px; margin: 0 auto;">
-              <h2 class="form-label" style="font-size: 1.5rem; margin-bottom: var(--space-6);">
-                <i class="fas fa-magic" style="color: var(--indigo-600);"></i> AI-Powered Creator
-              </h2>
-              
-              <div class="slide-nav" style="display: flex; gap: var(--space-2); margin-bottom: var(--space-6); overflow-x: auto;">
-                ${state.slides.map((slide, i) => `
-                  <button class="btn ${i === state.currentSlide ? 'btn-primary' : 'btn-secondary'}" 
-                          style="min-width: 80px;"
-                          onclick="app.store.update({ currentSlide: ${i} })">
-                    Slide ${i + 1}<br>
-                    <span style="font-size: 0.75rem;">${slide.type}</span>
-                  </button>
-                `).join('')}
-                <button class="btn btn-ghost" onclick="app.addSlide()">+ Add</button>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">
-                  <i class="fas fa-microchip"></i> AI Assistant
-                </label>
-                <div style="display: flex; gap: var(--space-2);">
-                  <input class="form-input" id="ai-prompt" placeholder="Describe what you want to ask...">
-                  <button class="btn btn-primary" onclick="app.generateWithAI()">
-                    <i class="fas fa-magic"></i> Generate
-                  </button>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Slide Type</label>
-                <select class="form-input" id="slide-type" onchange="app.updateSlideType(this.value)">
-                  <option value="poll" ${currentSlide.type === 'poll' ? 'selected' : ''}>Multiple Choice Poll</option>
-                  <option value="wordcloud" ${currentSlide.type === 'wordcloud' ? 'selected' : ''}>Word Cloud</option>
-                  <option value="quiz" ${currentSlide.type === 'quiz' ? 'selected' : ''}>Quiz</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Question</label>
-                <input class="form-input" id="question-input" 
-                       value="${Validators.escapeHtml(currentSlide.question)}"
-                       oninput="app.updateQuestion(this.value)">
-              </div>
-
-              ${currentSlide.type === 'poll' || currentSlide.type === 'quiz' ? `
-                <div class="form-group">
-                  <label class="form-label">Options</label>
-                  ${currentSlide.options.map((opt, i) => `
-                    <div style="display: flex; gap: var(--space-2); margin-bottom: var(--space-2);">
-                      <input class="form-input" value="${Validators.escapeHtml(opt)}" 
-                             oninput="app.updateOption(${i}, this.value)">
-                      ${i > 1 ? `
-                        <button class="btn btn-secondary" onclick="app.removeOption(${i})">✕</button>
-                      ` : ''}
-                    </div>
-                  `).join('')}
-                  <button class="btn btn-ghost" style="width: 100%;" onclick="app.addOption()">
-                    + Add Option
-                  </button>
-                </div>
-              ` : ''}
-
-              <div style="display: flex; gap: var(--space-2); justify-content: flex-end;">
-                <button class="btn btn-secondary" onclick="app.showPage('dashboard')">Cancel</button>
-                <button class="btn btn-primary" onclick="app.saveAndLaunch()">
-                  <i class="fas fa-rocket"></i> Save & Launch
-                </button>
-              </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+              <span style="font-size:18px;">🥈</span><span style="flex:1;font-weight:600;">Bob Smith</span><span style="font-family:'DM Mono',monospace;color:var(--muted);">2650 pts</span>
             </div>
-          `;
-        },
-
-        // Live Session
-        Live: (state) => {
-          const currentSlide = state.slides[state.currentSlide];
-          if (!currentSlide) return '<div class="card">No slides available</div>';
-
-          const renderPoll = () => `
-            <div class="card">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
-                <h3 class="form-label" style="font-size: 1.25rem;">${Validators.escapeHtml(currentSlide.question)}</h3>
-                <div style="display: flex; gap: var(--space-2);">
-                  <div class="sentiment-badge sentiment-positive">
-                    <i class="fas fa-chart-line"></i> Live
-                  </div>
-                </div>
-              </div>
-              
-              <div class="live-results">
-                ${currentSlide.options.map((opt, i) => {
-                  const votes = currentSlide.votes?.[i] || 0;
-                  const total = currentSlide.votes?.reduce((a, b) => a + b, 0) || 1;
-                  const percentage = Math.round((votes / total) * 100);
-                  
-                  return `
-                    <div class="result-row">
-                      <span class="result-label">${Validators.escapeHtml(opt)}</span>
-                      <div class="result-bar-container">
-                        <div class="result-bar" style="width: ${percentage}%">
-                          ${percentage > 15 ? percentage + '%' : ''}
-                        </div>
-                      </div>
-                      <span class="result-count">${votes}</span>
-                    </div>
-                  `;
-                }).join('')}
-              </div>
-            </div>
-          `;
-
-          const renderWordCloud = () => `
-            <div class="card">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
-                <h3 class="form-label" style="font-size: 1.25rem;">${Validators.escapeHtml(currentSlide.question)}</h3>
-                
-                <!-- Sentiment analysis summary -->
-                ${currentSlide.words?.length > 0 ? `
-                  <div style="display: flex; gap: var(--space-2);">
-                    <div class="sentiment-badge sentiment-positive">
-                      <i class="fas fa-smile"></i> 
-                      ${currentSlide.words.filter(w => w.sentiment === 'positive').length}
-                    </div>
-                    <div class="sentiment-badge sentiment-neutral">
-                      <i class="fas fa-meh"></i>
-                      ${currentSlide.words.filter(w => w.sentiment === 'neutral').length}
-                    </div>
-                    <div class="sentiment-badge sentiment-negative">
-                      <i class="fas fa-frown"></i>
-                      ${currentSlide.words.filter(w => w.sentiment === 'negative').length}
-                    </div>
-                  </div>
-                ` : ''}
-              </div>
-
-              <div class="word-cloud">
-                ${currentSlide.words?.map(word => `
-                  <div class="word-bubble" 
-                       style="font-size: ${word.size}em; 
-                              background: ${word.sentiment === 'positive' ? 'var(--success-50)' : 
-                                         word.sentiment === 'negative' ? 'var(--error-50)' : 
-                                         'var(--slate-100)'};
-                              color: ${word.sentiment === 'positive' ? 'var(--success-600)' : 
-                                      word.sentiment === 'negative' ? 'var(--error-600)' : 
-                                      'var(--slate-700)'};"
-                       title="Confidence: ${Math.round(word.confidence * 100)}%">
-                    ${Validators.escapeHtml(word.text)}
-                  </div>
-                `).join('') || '<div style="color: var(--slate-400);">Add words to see the cloud</div>'}
-              </div>
-
-              <div style="margin-top: var(--space-4); display: flex; gap: var(--space-2);">
-                <input type="text" 
-                       class="form-input" 
-                       id="word-input" 
-                       placeholder="Type your response..."
-                       onkeydown="if(event.key==='Enter') app.addWord(this.value)">
-                <button class="btn btn-primary" onclick="app.addWord(document.getElementById('word-input').value)">
-                  Submit
-                </button>
-              </div>
-            </div>
-          `;
-
-          const renderQuiz = () => `
-            <div class="card">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
-                <h3 class="form-label" style="font-size: 1.25rem;">${Validators.escapeHtml(currentSlide.question)}</h3>
-                <div class="timer">
-                  <svg class="timer-svg" viewBox="0 0 60 60">
-                    <circle class="timer-circle-bg" cx="30" cy="30" r="26"/>
-                    <circle class="timer-circle" id="timer-circle" cx="30" cy="30" r="26" 
-                            stroke-dasharray="163" stroke-dashoffset="0"/>
-                  </svg>
-                  <span class="timer-number" id="timer-number">20</span>
-                </div>
-              </div>
-
-              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-2); margin-bottom: var(--space-4);">
-                ${currentSlide.options.map((opt, i) => `
-                  <button class="btn btn-secondary quiz-option" 
-                          style="padding: var(--space-4); height: auto; text-align: left;"
-                          onclick="app.answerQuiz(${i}, ${i === currentSlide.correct})">
-                    <span style="display: block; font-weight: 600; margin-bottom: var(--space-1);">
-                      ${String.fromCharCode(65 + i)}
-                    </span>
-                    ${Validators.escapeHtml(opt)}
-                  </button>
-                `).join('')}
-              </div>
-
-              <div id="quiz-feedback" style="display: none; margin-bottom: var(--space-4);"></div>
-
-              <div>
-                <h4 class="form-label" style="margin-bottom: var(--space-2);">🏆 Leaderboard</h4>
-                ${currentSlide.leaderboard?.map((entry, i) => `
-                  <div style="display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2); background: var(--slate-50); border-radius: var(--radius-md); margin-bottom: var(--space-1);">
-                    <span>${i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}</span>
-                    <span style="flex: 1;">${Validators.escapeHtml(entry.name)}</span>
-                    <span style="font-weight: 600; color: var(--indigo-600);">${entry.score}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
-
-          return `
-            <div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
-                <h2 class="form-label" style="font-size: 1.5rem;">
-                  <i class="fas fa-circle" style="color: #ef4444; font-size: 1rem;"></i> Live Session
-                </h2>
-                <div style="display: flex; gap: var(--space-2); align-items: center;">
-                  <div class="blockchain-badge" onclick="app.showVerification()">
-                    <i class="fas fa-link"></i> ${state.sessionCode}
-                  </div>
-                  <div class="sentiment-badge sentiment-neutral">
-                    <i class="fas fa-users"></i> ${state.participants}
-                  </div>
-                </div>
-              </div>
-
-              <div class="tabs" style="margin-bottom: var(--space-4);">
-                ${state.slides.map((s, i) => `
-                  <button class="tab ${i === state.currentSlide ? 'active' : ''}" 
-                          onclick="app.store.update({ currentSlide: ${i} })">
-                    ${i + 1}. ${s.type}
-                  </button>
-                `).join('')}
-              </div>
-
-              ${currentSlide.type === 'poll' ? renderPoll() : 
-                currentSlide.type === 'wordcloud' ? renderWordCloud() : 
-                renderQuiz()}
-
-              <div style="display: flex; gap: var(--space-2); justify-content: space-between; margin-top: var(--space-4);">
-                <button class="btn btn-secondary" onclick="app.showPage('create')">← Edit</button>
-                <div style="display: flex; gap: var(--space-2);">
-                  <button class="btn btn-primary" onclick="app.nextSlide()">Next →</button>
-                  <button class="btn btn-danger" onclick="app.endSession()">End</button>
-                </div>
-              </div>
-
-              ${state.blockchainVerification ? `
-                <div class="card" style="margin-top: var(--space-4); background: var(--indigo-50);">
-                  <div style="display: flex; align-items: center; gap: var(--space-2);">
-                    <i class="fas fa-link" style="color: var(--indigo-600);"></i>
-                    <span style="flex: 1;">Session verified on blockchain</span>
-                    <span class="sentiment-badge sentiment-positive">Merkle Root: ${state.blockchainVerification.merkleRoot.slice(0, 8)}...</span>
-                  </div>
-                </div>
-              ` : ''}
-            </div>
-          `;
-        },
-
-        // Join Page
-        Join: () => `
-          <div style="max-width: 400px; margin: var(--space-12) auto;">
-            <div class="card">
-              <h2 class="form-label" style="font-size: 1.5rem; text-align: center; margin-bottom: var(--space-4);">
-                Join Session
-              </h2>
-              
-              <div class="form-group">
-                <label class="form-label">Session Code</label>
-                <input class="form-input" id="join-code" 
-                       placeholder="XK7P" 
-                       style="font-size: 2rem; text-align: center; letter-spacing: 0.5rem;"
-                       maxlength="4"
-                       oninput="this.value = this.value.toUpperCase()">
-              </div>
-
-              <button class="btn btn-primary" style="width: 100%; padding: var(--space-4);" onclick="app.joinSession()">
-                Join Now
-              </button>
-
-              <div style="margin-top: var(--space-4); text-align: center;">
-                <button class="btn btn-ghost" onclick="app.joinDemo()">Try Demo</button>
-              </div>
-
-              <div style="margin-top: var(--space-4); display: flex; justify-content: center; gap: var(--space-2);">
-                <i class="fas fa-wifi" style="color: var(--indigo-600);" title="Works offline"></i>
-                <i class="fas fa-shield-alt" style="color: var(--indigo-600);" title="Blockchain verified"></i>
-                <i class="fas fa-language" style="color: var(--indigo-600);" title="50+ languages"></i>
-              </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+              <span style="font-size:18px;">🥉</span><span style="flex:1;font-weight:600;">Carol Jones</span><span style="font-family:'DM Mono',monospace;color:var(--muted);">2490 pts</span>
             </div>
           </div>
-        `
-      };
+        </div>
+      </div>
+    </div>
 
-      // ===== MAIN APPLICATION =====
-      class App {
-        constructor() {
-          this.store = new Store();
-          this.api = new ApiService();
-          this.sentimentAI = new SentimentAI();
-          this.blockchain = new BlockchainService();
-          this.gamification = new GamificationEngine();
-          this.analytics = new PredictiveAnalytics();
-          this.translator = new TranslationEngine();
-          
-          this.currentPage = 'dashboard';
-          this.timerInterval = null;
-          
-          // Bind methods
-          this.showPage = ErrorBoundary.wrap(this.showPage.bind(this), 'showPage');
-          this.addVote = ErrorBoundary.wrap(this.addVote.bind(this), 'addVote');
-          this.addWord = ErrorBoundary.wrap(this.addWord.bind(this), 'addWord');
-          this.answerQuiz = ErrorBoundary.wrap(this.answerQuiz.bind(this), 'answerQuiz');
-          this.notify = Components.toast;
-          
-          // Subscribe to store
-          this.unsubscribe = this.store.subscribe(this.render.bind(this));
+    <!-- Q&A -->
+    <div id="live-tab-qa" style="display:none;">
+      <div class="card">
+        <div class="preview-question mb-24" style="font-size:22px;">💬 Live Q&amp;A</div>
+        <div id="qa-list" style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
+            <div style="font-size:15px;margin-bottom:8px;">What's the roadmap for next quarter?</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span style="font-size:12px;color:var(--muted);">Anonymous · 2 min ago</span>
+              <button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="upvote(this)">👍 12</button>
+              <button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;color:var(--accent3);">✓ Answer</button>
+            </div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
+            <div style="font-size:15px;margin-bottom:8px;">Will there be remote work options?</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span style="font-size:12px;color:var(--muted);">Anonymous · 5 min ago</span>
+              <button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="upvote(this)">👍 7</button>
+              <button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;color:var(--accent3);">✓ Answer</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <input class="form-input" id="qa-input" placeholder="Ask a question..." style="flex:1;" onkeydown="if(event.key==='Enter')submitQuestion()">
+          <button class="btn btn-primary" onclick="submitQuestion()">Ask</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ JOIN ============ -->
+<div class="page" id="page-join">
+  <div class="container" style="max-width:480px;padding-top:80px;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="section-title" style="font-size:36px;">Join a Session</div>
+      <div class="section-sub">Enter the code shown on screen</div>
+    </div>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">Session Code</label>
+        <input class="form-input" id="join-code" placeholder="e.g. XK7P" style="font-size:28px;text-align:center;letter-spacing:8px;font-family:'DM Mono',monospace;" maxlength="4" oninput="this.value=this.value.toUpperCase(); document.getElementById('join-code').classList.remove('error');">
+      </div>
+      <button class="btn btn-primary btn-large" style="width:100%" onclick="joinSession()">Join Now →</button>
+      <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--muted);">
+        No account needed · Works on any device
+      </div>
+    </div>
+
+    <div style="margin-top:32px;text-align:center;">
+      <div style="color:var(--muted);font-size:14px;margin-bottom:16px;">Or try a demo</div>
+      <button class="btn btn-ghost" onclick="joinDemo()">🎮 Try Demo Session</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ GLOBAL STATE ============
+let slides = [
+  { type: 'poll', question: "What's your favorite programming language?", options: ['JavaScript','Python','TypeScript','Rust'] },
+  { type: 'wordcloud', question: 'Describe AI in one word', options: [] },
+  { type: 'quiz', question: 'What does HTTP stand for?', options: ['A) HyperText Markup Protocol','B) HyperText Transfer Protocol','C) High Transfer Text Protocol','D) HyperText Tracking Protocol'], correct: 1 }
+];
+let currentSlide = 0;
+let votes = [145,103,67,31];
+let totalParticipants = 234;
+let words = [
+  {w:'Powerful',s:2.2,c:'var(--accent)'},
+  {w:'Revolutionary',s:1.5,c:'var(--accent2)'},
+  {w:'Future',s:1.8,c:'var(--accent3)'},
+  {w:'Intelligence',s:1.3,c:'var(--accent4)'},
+  {w:'Learning',s:1.6,c:'var(--accent)'},
+  {w:'Neural',s:1.1,c:'var(--accent2)'},
+  {w:'Data',s:1.4,c:'var(--accent3)'},
+  {w:'Magic',s:1.9,c:'var(--accent4)'},
+];
+let timerInterval = null;
+
+// ============ LOCAL STORAGE ============
+function saveToStorage() {
+  const state = {
+    slides: slides,
+    votes: votes,
+    totalParticipants: totalParticipants,
+    words: words,
+    presentations: [
+      { name: 'Team All-Hands Q3', slides: 5, participants: 234, status: 'live' },
+      { name: 'Product Knowledge Quiz', slides: 8, participants: 89, status: 'active' },
+      { name: 'Customer Feedback', slides: 3, participants: 0, status: 'draft' }
+    ]
+  };
+  localStorage.setItem('openpoll', JSON.stringify(state));
+}
+
+function loadFromStorage() {
+  const saved = localStorage.getItem('openpoll');
+  if (saved) {
+    try {
+      const state = JSON.parse(saved);
+      if (state.slides) slides = state.slides;
+      if (state.votes) votes = state.votes;
+      if (state.totalParticipants) totalParticipants = state.totalParticipants;
+      if (state.words) words = state.words;
+      
+      // Update dashboard stats
+      document.getElementById('dashboard-presentations').textContent = state.presentations?.length || 3;
+      document.getElementById('dashboard-responses').textContent = votes.reduce((a,b)=>a+b,0).toLocaleString();
+      
+      notify('Loaded saved data', '💾');
+    } catch (e) {
+      console.log('No saved data or error loading');
+    }
+  }
+}
+
+// ============ PAGE ROUTING ============
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0,0);
+  
+  // Special handling for live page
+  if (name === 'live') {
+    updateLiveFromCurrentSlide();
+  }
+}
+
+// ============ NOTIFICATIONS ============
+function notify(msg, icon='✅') {
+  const n = document.getElementById('notif');
+  document.getElementById('notif-text').textContent = msg;
+  n.querySelector('.icon').textContent = icon;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3200);
+}
+
+// ============ FEATURE CARD SELECTION ============
+function selectType(card, type) {
+  document.querySelectorAll('#slide-type-grid .feature-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+
+// ============ PREVIEW & SLIDE MANAGEMENT ============
+function updatePreview() {
+  const q = document.getElementById('question-input').value;
+  document.getElementById('preview-question').textContent = q || 'Your question here...';
+  
+  const opts = [...document.querySelectorAll('#options-list .option-row input')].map(i => i.value);
+  const widths = [65,45,30,20,15,10,8,6];
+  const container = document.getElementById('preview-options');
+  
+  container.innerHTML = opts.map((o,i) => `
+    <div class="preview-option" onclick="votePreview(this)">
+      ${o || 'Option ' + (i+1)}
+      <div class="bar-wrap"><div class="bar" style="width:${widths[i]||8}%"></div></div>
+    </div>
+  `).join('');
+}
+
+function votePreview(el) {
+  document.querySelectorAll('.preview-option').forEach(o => o.classList.remove('voted'));
+  el.classList.add('voted');
+  
+  // Simulate vote increase
+  const bar = el.querySelector('.bar');
+  if (bar) {
+    const currentWidth = parseFloat(bar.style.width) || 0;
+    const newWidth = Math.min(currentWidth + 5, 100);
+    bar.style.width = newWidth + '%';
+  }
+  
+  notify('Vote registered! 🗳️');
+}
+
+function addOption() {
+  const list = document.getElementById('options-list');
+  const row = document.createElement('div');
+  row.className = 'option-row';
+  row.innerHTML = `<input class="form-input" placeholder="New option" oninput="updatePreview(); saveCurrentSlide();"><button class="btn-icon btn-icon-remove" onclick="removeOption(this)">✕</button>`;
+  list.appendChild(row);
+  row.querySelector('input').focus();
+  updatePreview();
+  saveCurrentSlide();
+}
+
+function removeOption(btn) {
+  btn.parentElement.remove();
+  updatePreview();
+  saveCurrentSlide();
+}
+
+function saveCurrentSlide() {
+  const type = document.getElementById('slide-type-select').value;
+  const question = document.getElementById('question-input').value;
+  const options = [...document.querySelectorAll('#options-list .option-row input')].map(i => i.value).filter(v => v.trim() !== '');
+  
+  slides[currentSlide] = {
+    type: type,
+    question: question,
+    options: options.length ? options : ['Option 1', 'Option 2', 'Option 3', 'Option 4']
+  };
+  
+  saveToStorage();
+}
+
+function loadSlide(index) {
+  saveCurrentSlide(); // Save previous first
+  
+  currentSlide = index;
+  const slide = slides[index] || { type: 'poll', question: 'New Slide', options: ['Option 1','Option 2','Option 3','Option 4'] };
+  
+  // Ensure slide has all properties
+  if (!slide.options) slide.options = ['Option 1','Option 2','Option 3','Option 4'];
+  
+  document.getElementById('slide-type-select').value = slide.type;
+  document.getElementById('question-input').value = slide.question;
+  
+  // Rebuild options
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  
+  (slide.options || []).forEach(opt => {
+    const row = document.createElement('div');
+    row.className = 'option-row';
+    row.innerHTML = `<input class="form-input" value="${opt.replace(/"/g, '&quot;')}" oninput="updatePreview(); saveCurrentSlide();"><button class="btn-icon btn-icon-remove" onclick="removeOption(this)">✕</button>`;
+    list.appendChild(row);
+  });
+  
+  if (slide.options.length === 0) {
+    addOption(); // Add default if empty
+  }
+  
+  updatePreview();
+}
+
+// ============ SLIDE NAV ============
+function switchSlide(idx, thumb) {
+  document.querySelectorAll('.slide-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  loadSlide(idx);
+}
+
+function addSlide() {
+  const nav = document.getElementById('slide-nav');
+  const addBtn = nav.lastElementChild;
+  const num = nav.children.length;
+  
+  // Add new slide to slides array
+  slides.push({ type: 'poll', question: `Slide ${num}`, options: ['Option 1','Option 2','Option 3','Option 4'] });
+  
+  const th = document.createElement('div');
+  th.className = 'slide-thumb';
+  th.textContent = `Slide ${num}\nNew`;
+  th.style.whiteSpace='pre';
+  th.onclick = () => switchSlide(num-1, th);
+  nav.insertBefore(th, addBtn);
+  
+  notify('Slide added!');
+  saveToStorage();
+}
+
+// ============ SAVE & LAUNCH ============
+function saveAndLaunch() {
+  saveCurrentSlide();
+  saveToStorage();
+  
+  // Generate random join code
+  const code = generateJoinCode();
+  document.getElementById('live-join-code').textContent = code;
+  
+  updateLiveFromCurrentSlide();
+  
+  notify('Presentation saved! Launching...', '🚀');
+  setTimeout(() => showPage('live'), 1000);
+}
+
+function generateJoinCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  for(let i=0;i<4;i++) code += chars[Math.floor(Math.random() * chars.length)];
+  return code;
+}
+
+function updateLiveFromCurrentSlide() {
+  const slide = slides[currentSlide] || slides[0];
+  
+  // Update question
+  document.getElementById('live-question').textContent = slide.question || 'Question';
+  document.getElementById('wordcloud-question').textContent = slide.question || 'Describe in one word';
+  document.getElementById('quiz-question').textContent = slide.question || 'Quiz question';
+  
+  // Update options
+  if (slide.options && slide.options.length) {
+    for (let i = 0; i < 4; i++) {
+      const labelEl = document.getElementById(`live-opt-${i}-label`);
+      if (labelEl) labelEl.textContent = slide.options[i] || `Option ${i+1}`;
+    }
+    
+    // Update quiz options
+    const quizOptions = document.getElementById('quiz-options');
+    if (quizOptions && slide.options.length >= 4) {
+      quizOptions.innerHTML = slide.options.map((opt, i) => 
+        `<div class="quiz-option" onclick="answerQuiz(this,${i === (slide.correct || 1)})">${String.fromCharCode(65 + i)}) ${opt}</div>`
+      ).join('');
+    }
+  }
+  
+  // Reset quiz state
+  resetQuiz();
+}
+
+// ============ LIVE VOTES SIMULATION ============
+function simulateVote() {
+  const idx = Math.floor(Math.random()*votes.length);
+  votes[idx]++;
+  totalParticipants = votes.reduce((a,b)=>a+b,0);
+  
+  document.getElementById('part-count').textContent = totalParticipants;
+  
+  votes.forEach((v,i) => {
+    const pct = Math.round(v/totalParticipants*100);
+    const bar = document.getElementById('bar-'+i);
+    const cnt = document.getElementById('cnt-'+i);
+    if(bar) { 
+      bar.style.width = pct+'%'; 
+      if(bar.querySelector('span')) bar.querySelector('span').textContent = pct+'%';
+    }
+    if(cnt) cnt.textContent = v;
+  });
+  
+  saveToStorage();
+  notify(`New vote! Total: ${totalParticipants} 🗳️`, '🗳️');
+}
+
+// Auto-simulate votes every 2.5s
+setInterval(() => {
+  if(document.getElementById('page-live').classList.contains('active') && 
+     document.getElementById('live-tab-poll').style.display !== 'none') {
+    simulateVote();
+  }
+}, 2500);
+
+// ============ LIVE TABS ============
+function switchLiveTab(name, btn) {
+  ['poll','wordcloud','quiz','qa'].forEach(t => {
+    const el = document.getElementById('live-tab-'+t);
+    if(el) el.style.display = t===name?'block':'none';
+  });
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  
+  if (name === 'quiz') startTimer();
+}
+
+// ============ WORDCLOUD ============
+function renderWordcloud() {
+  const el = document.getElementById('wordcloud-display');
+  if(!el) return;
+  
+  el.innerHTML = words.map(w => 
+    `<div class="word-bubble" style="font-size:${w.s}em;background:${w.c}22;color:${w.c};border:1px solid ${w.c}44">${w.w}</div>`
+  ).join('');
+}
+
+function addWord() {
+  const inp = document.getElementById('word-input');
+  if (!inp) return;
+  
+  const val = inp.value.trim();
+  if(!val) return;
+  
+  const colors = ['var(--accent)','var(--accent2)','var(--accent3)','var(--accent4)'];
+  words.push({w:val, s:1+Math.random()*1.5, c:colors[Math.floor(Math.random()*colors.length)]});
+  inp.value='';
+  
+  renderWordcloud();
+  saveToStorage();
+  notify('Word added to cloud! ☁️','☁️');
+}
+
+// ============ QUIZ ============
+function startTimer() {
+  clearInterval(timerInterval);
+  
+  let timerVal = 20;
+  const timerEl = document.getElementById('timer-num');
+  const circle = document.getElementById('timer-circle');
+  
+  if (!timerEl || !circle) return;
+  
+  timerEl.textContent = timerVal;
+  circle.style.strokeDashoffset = '0';
+  
+  timerInterval = setInterval(() => {
+    timerVal--;
+    timerEl.textContent = timerVal;
+    circle.style.strokeDashoffset = (163 * (1 - timerVal/20)).toString();
+    
+    if(timerVal <= 0) { 
+      clearInterval(timerInterval); 
+      notify("Time's up! ⏰",'⏰');
+      
+      // Auto-reveal correct answer
+      document.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
+      document.querySelectorAll('.quiz-option')[1].classList.add('correct');
+    }
+  }, 1000);
+}
+
+function resetQuiz() {
+  clearInterval(timerInterval);
+  
+  document.querySelectorAll('.quiz-option').forEach(o => {
+    o.style.pointerEvents = 'auto';
+    o.classList.remove('correct', 'wrong');
+  });
+  
+  const fb = document.getElementById('quiz-feedback');
+  if (fb) fb.style.display = 'none';
+}
+
+function answerQuiz(btn, correct) {
+  clearInterval(timerInterval);
+  
+  document.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents='none');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  
+  if(!correct) {
+    // Highlight correct answer (assuming index 1 is correct)
+    document.querySelectorAll('.quiz-option')[1].classList.add('correct');
+  }
+  
+  const fb = document.getElementById('quiz-feedback');
+  fb.style.display='block';
+  fb.style.background = correct ? 'rgba(92,252,184,.1)' : 'rgba(252,92,125,.1)';
+  fb.style.color = correct ? 'var(--accent3)' : 'var(--accent2)';
+  fb.textContent = correct ? '🎉 Correct! +500 points' : '❌ Wrong! The answer was B.';
+  
+  saveToStorage();
+}
+
+// ============ Q&A ============
+function submitQuestion() {
+  const inp = document.getElementById('qa-input');
+  const val = inp.value.trim();
+  if(!val) return;
+  
+  const list = document.getElementById('qa-list');
+  const div = document.createElement('div');
+  div.style.cssText = 'background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.2);border-radius:12px;padding:16px 20px;animation:fadeIn .3s ease;';
+  div.innerHTML = `<div style="font-size:15px;margin-bottom:8px;">${val}</div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span style="font-size:12px;color:var(--muted);">You · just now</span>
+      <button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="upvote(this)">👍 0</button>
+    </div>`;
+  list.prepend(div);
+  inp.value='';
+  
+  notify('Question submitted! 🙋','🙋');
+  saveToStorage();
+}
+
+function upvote(btn) {
+  const n = parseInt(btn.textContent.replace('👍 ','')) + 1;
+  btn.textContent = '👍 ' + n;
+  notify('Upvoted!','👍');
+  saveToStorage();
+}
+
+// ============ JOIN ============
+function joinSession() {
+  const codeInput = document.getElementById('join-code');
+  const code = codeInput.value;
+  
+  if(code.length < 4) { 
+    notify('Code must be 4 characters', '⚠️');
+    codeInput.classList.add('error');
+    return; 
+  }
+  
+  document.getElementById('live-join-code').textContent = code;
+  notify(`Joining session ${code}...`,'🔗');
+  setTimeout(() => showPage('live'), 800);
+}
+
+function joinDemo() {
+  document.getElementById('join-code').value = 'XK7P';
+  joinSession();
+}
+
+// ============ SESSION CONTROLS ============
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  updateLiveFromCurrentSlide();
+  notify('Moved to next slide', '➡️');
+  saveToStorage();
+}
+
+function endSession() {
+  if (confirm('End this session? All data will be saved.')) {
+    notify('Session ended', '🔴');
+    showPage('dashboard');
+  }
+}
+
+function saveSettings() {
+  saveToStorage();
+  notify('Settings saved', '⚙️');
+}
+
+// ============ INIT ============
+window.onload = function() {
+  renderWordcloud();
+  loadFromStorage();
+  
+  // Observe live page for quiz timer
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((m) => {
+      if (m.target.id === 'page-live' && m.target.classList.contains('active')) {
+        const activeTab = document.querySelector('.tabs .tab.active');
+        if (activeTab && activeTab.textContent.includes('Quiz')) {
+          resetQuiz();
+          startTimer();
         }
-
-        async init() {
-          await this.api.connect();
-          this.render();
-          this.setupKeyboardShortcuts();
-        }
-
-        setupKeyboardShortcuts() {
-          document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + N for new presentation
-            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
-              e.preventDefault();
-              this.showPage('create');
-            }
-            
-            // Escape to exit
-            if (e.key === 'Escape' && this.currentPage === 'live') {
-              if (confirm('End current session?')) {
-                this.showPage('dashboard');
-              }
-            }
-          });
-        }
-
-        showPage(page) {
-          this.currentPage = page;
-          if (page === 'live') {
-            this.startLiveUpdates();
-          } else {
-            this.stopLiveUpdates();
-          }
-          this.render();
-        }
-
-        startLiveUpdates() {
-          const state = this.store.getState();
-          const currentSlide = state.slides[state.currentSlide];
-          if (currentSlide?.type === 'quiz') {
-            this.startQuizTimer();
-          }
-        }
-
-        stopLiveUpdates() {
-          if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-            this.timerInterval = null;
-          }
-        }
-
-        startQuizTimer() {
-          let timeLeft = 20;
-          const timerNumber = document.getElementById('timer-number');
-          const timerCircle = document.getElementById('timer-circle');
-          
-          if (this.timerInterval) clearInterval(this.timerInterval);
-          
-          this.timerInterval = setInterval(() => {
-            timeLeft--;
-            if (timerNumber) timerNumber.textContent = timeLeft;
-            if (timerCircle) {
-              const offset = 163 * (1 - timeLeft / 20);
-              timerCircle.style.strokeDashoffset = offset;
-            }
-            
-            if (timeLeft <= 0) {
-              clearInterval(this.timerInterval);
-              this.notify("Time's up!", 'warning');
-            }
-          }, 1000);
-        }
-
-        async addVote(optionIndex) {
-          const state = this.store.getState();
-          const currentSlide = state.slides[state.currentSlide];
-          if (currentSlide?.type === 'poll') {
-            await this.store.addVote(currentSlide.id, optionIndex);
-            this.notify('Vote recorded!', 'success');
-          }
-        }
-
-        async addWord(word) {
-          if (!Validators.required(word)) {
-            this.notify('Please enter a word', 'error');
-            return;
-          }
-          
-          const sanitized = Validators.sanitize(word);
-          const state = this.store.getState();
-          const currentSlide = state.slides[state.currentSlide];
-          
-          if (currentSlide?.type === 'wordcloud') {
-            await this.store.addWord(currentSlide.id, sanitized);
-            document.getElementById('word-input').value = '';
-          }
-        }
-
-        answerQuiz(optionIndex, isCorrect) {
-          this.stopLiveUpdates();
-          
-          const feedback = document.getElementById('quiz-feedback');
-          if (feedback) {
-            feedback.style.display = 'block';
-            feedback.style.background = isCorrect ? 'var(--success-50)' : 'var(--error-50)';
-            feedback.style.color = isCorrect ? 'var(--success-600)' : 'var(--error-600)';
-            feedback.style.padding = 'var(--space-3) var(--space-4)';
-            feedback.style.borderRadius = 'var(--radius-md)';
-            feedback.textContent = isCorrect ? 
-              '🎉 Correct! +50 points' : 
-              '❌ Incorrect. The correct answer was B';
-          }
-          
-          // Gamification
-          this.gamification.recordActivity(this.store.state.user.id, {
-            type: isCorrect ? 'correctAnswer' : 'vote'
-          });
-          
-          this.notify(isCorrect ? 'Correct answer!' : 'Wrong answer', isCorrect ? 'success' : 'error');
-        }
-
-        async endSession() {
-          if (confirm('End this session? Results will be saved and verified.')) {
-            const verification = await this.store.endSession();
-            this.showPage('dashboard');
-            this.notify(`Session verified on blockchain: ${verification.merkleRoot.slice(0, 8)}...`, 'success');
-          }
-        }
-
-        async generateWithAI() {
-          const prompt = document.getElementById('ai-prompt')?.value;
-          if (!prompt) {
-            this.notify('Please enter a prompt', 'error');
-            return;
-          }
-
-          // Mock AI generation (in production, call actual AI service)
-          const suggestions = {
-            'poll': 'What feature would you like to see next?',
-            'quiz': 'Which technology trend will dominate 2024?',
-            'wordcloud': 'Describe our company culture in one word'
-          };
-
-          const type = document.getElementById('slide-type')?.value || 'poll';
-          document.getElementById('question-input').value = suggestions[type] || prompt;
-          this.updateQuestion(suggestions[type] || prompt);
-          
-          this.notify('✨ AI generated your question!', 'success');
-        }
-
-        async setLanguage(lang) {
-          this.translator.currentLanguage = lang;
-          this.notify(`Language changed to ${lang}`, 'success');
-          this.render();
-        }
-
-        joinSession() {
-          const code = document.getElementById('join-code')?.value;
-          if (!Validators.isCode(code)) {
-            this.notify('Please enter a valid 4-character code', 'error');
-            return;
-          }
-          this.store.state.sessionCode = code;
-          this.showPage('live');
-        }
-
-        joinDemo() {
-          document.getElementById('join-code').value = 'XK7P';
-          this.joinSession();
-        }
-
-        nextSlide() {
-          const state = this.store.getState();
-          const nextIndex = (state.currentSlide + 1) % state.slides.length;
-          this.store.update({ currentSlide: nextIndex });
-          this.startLiveUpdates();
-        }
-
-        saveAndLaunch() {
-          this.notify('Presentation saved! Launching...', 'success');
-          setTimeout(() => this.showPage('live'), 1000);
-        }
-
-        addSlide() {
-          const newSlide = {
-            id: Date.now().toString(),
-            type: 'poll',
-            question: 'New Slide',
-            options: ['Option 1', 'Option 2', 'Option 3', 'Option 4']
-          };
-          this.store.state.slides.push(newSlide);
-          this.store.notifyListeners();
-        }
-
-        updateSlideType(type) {
-          const state = this.store.getState();
-          const slide = state.slides[state.currentSlide];
-          slide.type = type;
-          this.store.notifyListeners();
-        }
-
-        updateQuestion(value) {
-          const state = this.store.getState();
-          const slide = state.slides[state.currentSlide];
-          slide.question = Validators.sanitize(value);
-          this.store.notifyListeners();
-        }
-
-        updateOption(index, value) {
-          const state = this.store.getState();
-          const slide = state.slides[state.currentSlide];
-          if (slide.options) {
-            slide.options[index] = Validators.sanitize(value);
-            this.store.notifyListeners();
-          }
-        }
-
-        addOption() {
-          const state = this.store.getState();
-          const slide = state.slides[state.currentSlide];
-          if (slide.options) {
-            slide.options.push(`Option ${slide.options.length + 1}`);
-            this.store.notifyListeners();
-          }
-        }
-
-        removeOption(index) {
-          const state = this.store.getState();
-          const slide = state.slides[state.currentSlide];
-          if (slide.options && slide.options.length > 2) {
-            slide.options.splice(index, 1);
-            this.store.notifyListeners();
-          } else {
-            this.notify('Must have at least 2 options', 'error');
-          }
-        }
-
-        showVerification() {
-          const state = this.store.getState();
-          if (state.blockchainVerification) {
-            this.notify(`Merkle Root: ${state.blockchainVerification.merkleRoot}`, 'info');
-          }
-        }
-
-        render() {
-          const root = document.getElementById('app-root');
-          const state = this.store.getState();
-          
-          const pages = {
-            dashboard: Components.Dashboard(state),
-            create: Components.Creator(state),
-            live: Components.Live(state),
-            join: Components.Join()
-          };
-
-          root.innerHTML = pages[this.currentPage] || pages.dashboard;
-        }
-
-        store = {
-          update: (updates) => {
-            Object.assign(this.store.state, updates);
-            this.store.notifyListeners();
-          },
-          getState: () => this.store.getState(),
-          addVote: (slideId, optionIndex) => this.store.addVote(slideId, optionIndex),
-          addWord: (slideId, word) => this.store.addWord(slideId, word),
-          endSession: () => this.store.endSession(),
-          notifyListeners: () => this.store.notifyListeners()
-        };
       }
-
-      // Initialize app
-      window.app = new App();
-      window.app.init();
-    })();
-  </script>
+    });
+  });
+  
+  const livePage = document.getElementById('page-live');
+  if (livePage) {
+    observer.observe(livePage, { attributes: true, attributeFilter: ['class'] });
+  }
+};
+</script>
 </body>
 </html>
